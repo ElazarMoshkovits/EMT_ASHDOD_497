@@ -248,3 +248,14 @@ a.scenario-card{display:block;text-decoration:none}
  .workspace{align-items:stretch}
  .hub-stats{grid-template-columns:repeat(auto-fit,minmax(96px,1fr))}
 }
+/* הכותרת במסכים צרים: המונים לא מתכווצים, והשם מתקצר במקום לעלות עליהם */
+.course-counters{flex-shrink:0}
+.course-brand{flex:1 1 auto;min-width:0;overflow:hidden}
+.course-brand>span:last-child{overflow:hidden}
+.course-brand b,.course-brand small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:none}
+.course-pill{flex-shrink:0}
+@media(max-width:360px){
+ .course-brand>span:last-child{display:none}
+ .course-counters{gap:4px}
+ .course-pill{padding:0 6px}
+}
