@@ -1,5 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#07131c"/>
-  <circle cx="256" cy="256" r="188" fill="#ff5a55"/>
-  <path d="M218 120h76v98h98v76h-98v98h-76v-98h-98v-76h98z" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="קורס חובשים 497">
+  <defs>
+    <linearGradient id="bg" x1="70" y1="50" x2="442" y2="462" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123d57"/>
+      <stop offset="1" stop-color="#06131d"/>
+    </linearGradient>
+    <linearGradient id="badge" x1="126" y1="342" x2="386" y2="438" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#55d6b2"/>
+      <stop offset="1" stop-color="#4de2da"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect x="26" y="26" width="460" height="460" rx="94" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="8"/>
+  <circle cx="256" cy="224" r="154" fill="#ff5a55"/>
+  <path d="M226 116h60v78h78v60h-78v78h-60v-78h-78v-60h78z" fill="#fff"/>
+  <rect x="126" y="342" width="260" height="96" rx="48" fill="url(#badge)" stroke="#071a2f" stroke-width="10"/>
+  <text x="256" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="70" font-weight="900" letter-spacing="4" fill="#071a2f">497</text>
 </svg>

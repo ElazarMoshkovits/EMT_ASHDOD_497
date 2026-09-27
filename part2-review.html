@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="משחקי תרגול לחלק ב׳ בקורס חובשים אשדוד 497">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="theme-color" content="#07131c">
+  <meta name="color-scheme" content="dark">
+  <title>קורס חובשים 497 — תרגול חלק ב׳</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./unified.css">
+  <link rel="stylesheet" href="./part2-review.css">
+</head>
+<body>
+  <div class="app-shell review-shell">
+    <header class="course-topbar">
+      <button class="course-brand" type="button" id="profileBtn"><span class="course-logo">✚</span><span><b>קורס חובשים • חלק ב׳</b><small id="welcome">מצבי חירום רפואיים — מתרגלים לפי נושא</small></span></button>
+      <div class="course-counters">
+        <button class="course-icon" type="button" id="soundBtn" aria-label="השתקת צלילים">🔊</button>
+        <a class="course-pill home-link" href="index.html">⌂ דף הבית</a>
+        <button class="course-pill reset" type="button" id="resetBtn">↻ איפוס חלק ב׳</button>
+        <span class="course-pill"><b id="xp">0</b> נק׳ 🏆</span>
+        <span class="course-pill"><b id="stars">0</b>/21 ⭐</span>
+      </div>
+    </header>
+
+    <main class="part2-app">
+      <section id="home">
+        <section class="part2-hero">
+          <div><span class="kicker">תרגול ממוקד • חלק ב׳</span><h1>בוחרים נושא.<br><em>מתרגלים לעומק.</em></h1><p>כל שבעת הנושאים פתוחים לבחירה. בכל משחק תמצאו שאלות ידע, מצבים מהשטח, משוב מיידי והסבר קצר וברור.</p></div>
+          <div class="hero-score"><span>התקדמות בחלק ב׳</span><b id="mastery">0%</b><small id="answeredSummary">עוד לא נענו שאלות</small></div>
+        </section>
+
+        <section class="mode-section" aria-label="בחירת משחק">
+          <div class="section-heading"><div><span>01</span><h2>בחרו משחק</h2></div><p>הניקוד והטעויות נשמרים בפרופיל הקורס</p></div>
+          <div class="mode-grid">
+            <button class="mode-card featured" id="mixedBtn"><span class="mode-icon">⚡</span><div><b>אתגר משולב</b><small>14 שאלות — שתיים מכל נושא</small></div></button>
+            <button class="mode-card" id="mistakesBtn"><span class="mode-icon">🎯</span><div><b>בנק הטעויות</b><small id="mistakeLabel">אין כרגע טעויות לתרגול</small></div></button>
+            <a class="mode-card simulator" href="index.html#part-b"><span class="mode-icon">🚨</span><div><b>סימולטור אנמנזה</b><small>זירה דינמית, החלטות ותחקיר קליני</small></div></a>
+          </div>
+        </section>
+
+        <section class="topic-section">
+          <div class="section-heading"><div><span>02</span><h2>תרגול לפי נושא</h2></div><p>7 נושאים • 70 שאלות ותרחישים • כולם פתוחים</p></div>
+          <div class="topic-grid" id="topics"></div>
+        </section>
+      </section>
+
+      <section id="game" class="game-view hidden">
+        <header class="game-head">
+          <button class="icon-btn" id="quitBtn" aria-label="יציאה">✕</button>
+          <div class="progress-wrap"><div class="progress-label"><span id="gameTitle"></span><span id="qCount"></span></div><div class="progress"><i id="progressBar"></i></div></div>
+          <div class="hearts" id="hearts">♥♥♥</div>
+        </header>
+        <article class="quiz-card">
+          <div class="question-meta"><span class="topic-pill" id="topic"></span><span class="scenario-pill hidden" id="scenarioPill">תרחיש</span></div>
+          <h2 class="question" id="question"></h2>
+          <div class="answers" id="answers"></div>
+          <div class="explain hidden" id="explain"></div>
+          <div class="next-row"><div class="timer" id="timer"><span>35</span></div><button class="review-btn" id="reviewBtn">🔖 שמור לחזרה</button><button class="primary hidden" id="nextBtn">לשאלה הבאה ←</button></div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>לתרגול בלבד • יש לפעול רק לפי הנחיות המדריך שלנו ר' יחיאל מייברג.</span></footer>
+  </div>
+
+  <div class="modal hidden" id="modal"><div class="modal-card" id="modalCard"></div></div>
+  <div class="toast hidden" id="toast"></div>
+  <script src="./part2-review.js"></script>
+  <script src="./pwa.js"></script>
+</body>
+</html>
