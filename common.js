@@ -193,7 +193,7 @@ const nav={
  home(){if(history.state&&history.state.view&&history.state.view!=='home'){history.back()}else{history.replaceState({view:'home'},'',location.pathname+location.search)}}
 };
 
-function footer(){return `<footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של ר׳ יחיאל מייברג.</span></footer>`}
+function footer(){return `<footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של המדריך ר׳ יחיאל מייברג.</span></footer>`}
 
 window.Course={get profile(){return profile},set profile(v){profile=v},save,onChange,record,bankInfo,bankIds,isSaved,toggleSaved,starsFor,coverage,starTotals,addXp,setLast,beep,toast,openModal,closeModal,modalOpen,confirm:confirmDialog,mountHeader,refreshHeader,openSettings,resetScope,nav,esc,shuffle,footer,DEFAULT_NAME,A_IDS,DAY};
 })();
