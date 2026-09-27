@@ -27,7 +27,7 @@ function injectCourseHeader(){if(document.querySelector('.course-topbar'))return
 function injectCourseFooter(){if(document.querySelector('.course-footer'))return;const footer=document.createElement('footer');footer.className='course-footer';footer.innerHTML='<span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>לתרגול בלבד • יש לפעול רק לפי הנחיות המדריך שלנו ר&#39; יחיאל מייברג.</span>';app.appendChild(footer)}
 function awardAnamnesisXp(){if(!engine||engine.state.xpAwarded)return 0;const report=engine.getReport(),gain=Math.max(0,Math.round(report.percent*10)),profile=getCourseProfile();profile.xp=(Number(profile.xp)||0)+gain;profile.anamnesisBest=profile.anamnesisBest||{};profile.anamnesisBest[engine.scenario.id]=Math.max(profile.anamnesisBest[engine.scenario.id]||0,report.percent);saveCourseProfile(profile);engine.state.xpAwarded=true;engine.state.xpGain=gain;return gain}
 const baseRenderHome=renderHome,baseRenderGame=renderGame,baseRenderReport=renderReport;
-renderHome=function(){baseRenderHome();injectCourseHeader()};
+renderHome=function(){baseRenderHome();injectCourseHeader();const tagline=document.querySelector('.intro h1 em');if(tagline)tagline.textContent='מתרגלים. מוכנים להציל חיים.'};
 renderGame=function(){baseRenderGame();injectCourseHeader();injectCourseFooter()};
 renderReport=function(){const gain=awardAnamnesisXp();baseRenderReport();injectCourseHeader();injectCourseFooter();const hero=document.querySelector('.report-hero>div:last-child');if(hero){const note=document.createElement('div');note.className='xp-award';note.textContent=gain?`+${gain} נקודות נוספו לפרופיל הקורס`:'הניקוד כבר נשמר בפרופיל הקורס';hero.appendChild(note)}};
 window.addEventListener('storage',()=>{if(!engine)renderHome()});
