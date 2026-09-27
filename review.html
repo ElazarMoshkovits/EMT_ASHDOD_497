@@ -42,7 +42,7 @@
 <div class="app-shell review-shell">
 <header class="course-topbar">
   <button class="course-brand" type="button" id="headerProfileBtn"><span class="course-logo">✚</span><span><b>קורס חובשים • אשדוד 497</b><small id="welcome">מתרגלים. מבינים. מוכנים למבחן ולשטח.</small></span></button>
-  <div class="course-counters"><button class="course-icon" type="button" id="soundBtn" aria-label="השתקת צלילים">🔊</button><a class="course-pill home-link" href="index.html">⌂ דף הבית</a><button class="course-pill reset" type="button" id="resetBtn">↻ איפוס</button><span class="course-pill"><b id="xp">0</b> נק׳ 🏆</span><span class="course-pill"><b id="totalStars">0</b>/<span id="maxStars">39</span> ⭐</span></div>
+  <div class="course-counters"><button class="course-icon" type="button" id="soundBtn" aria-label="השתקת צלילים">🔊</button><a class="course-pill home-link" href="index.html">⌂ דף הבית</a><button class="course-pill reset" type="button" id="resetBtn">איפוס</button><span class="course-pill"><b id="xp">0</b> נק׳ 🏆</span><span class="course-pill"><b id="totalStars">0</b>/<span id="maxStars">39</span> ⭐</span></div>
 </header>
 <main class="app">
   <section id="home">
@@ -545,7 +545,7 @@ function renderHome(){
  $('#welcome').textContent=profile.name==='חובש/ת'?'מתרגלים. מבינים. מוכנים למבחן ולשטח.':`ברוך הבא, ${profile.name}`;$('#xp').textContent=profile.xp;$('#totalStars').textContent=Object.values(profile.stars).reduce((a,b)=>a+b,0);$('#maxStars').textContent=levels.length*3;$('#categoryCount').textContent=`${levels.length} קטגוריות • כולן פתוחות לבחירה`;$('#soundBtn').textContent=profile.sound?'🔊':'🔇';
  $('#levels').innerHTML=levels.map((l,i)=>{const stars=profile.stars[i]||0;return `<button class="level" data-level="${i}" style="--accent:${l.color}"><div class="num">${l.icon}</div><h4>${i+1}. ${l.name}</h4><p>${l.desc}<br><b style="color:#dff">${l.qs.length} שאלות</b></p><div class="stars">${[0,1,2].map(x=>`<span class="${x<stars?'on':''}">★</span>`).join('')}</div></button>`}).join('');
  document.querySelectorAll('.level').forEach(b=>b.onclick=()=>openPracticeSetup(+b.dataset.level));
- const waiting=reviewQueue().length;$('#mistakeLabel').textContent=waiting?`${waiting} שאלות מטעויות ומסימונים.`:'אין שאלות שממתינות לחזרה.';
+ const waiting=reviewQueue().length;$('#mistakeLabel').textContent=waiting===1?'שאלה אחת ממתינה לחזרה.':waiting>1?`${waiting} שאלות ממתינות לחזרה.`:'אין שאלות שממתינות לחזרה.';
 }
 function show(id){['home','game','memory','scenarios','sequence'].forEach(x=>$('#'+x).classList.toggle('hidden',x!==id));window.scrollTo(0,0)}
 function openPracticeSetup(idx){
@@ -582,7 +582,7 @@ function buildSessionInsights(){
 }
 function finish(survived){
  clearInterval(tick);const total=session.qs.length,correct=session.correct,accuracy=Math.round(correct/total*100);let stars=accuracy>=88?3:accuracy>=65?2:accuracy>=45?1:0;if(session.awardStars){profile.stars[session.idx]=Math.max(profile.stars[session.idx]||0,stars)}save();beep(stars>=2?'win':'bad');
- const title=session.label||levels[session.idx].name;lastResult={title,summary:`${correct} תשובות נכונות מתוך ${total} (${accuracy}%)`,score:session.score};const insights=buildSessionInsights();
+ const title=session.label||levels[session.idx].name;lastResult={title,summary:`${correct}/${total} תשובות נכונות (${accuracy}%)`,score:session.score};const insights=buildSessionInsights();
  $('#modalCard').innerHTML=`<div class="big-emoji">${stars>=2?'🏆':'🩹'}</div><h2>${stars>=2?'תרגול מצוין!':'התרגול הושלם'}</h2><p style="color:var(--muted)">הטעויות והשאלות שסומנו נשמרו לחזרה.</p><div style="font-size:27px;color:var(--gold)">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</div><div class="result-grid"><div class="stat"><b>${session.score}</b><small>נקודות</small></div><div class="stat"><b>${accuracy}%</b><small>דיוק</small></div><div class="stat"><b>${correct}/${total}</b><small>תשובות נכונות</small></div></div>${insights}<div class="cta" style="justify-content:center"><button class="btn" id="recommendedBtn">תרגל את ההמלצה</button><button class="btn secondary" onclick="retry()">שחק שוב</button></div><div class="cta" style="justify-content:center"><button class="btn secondary" onclick="closeResult()">חזרה לקטגוריות</button><button class="btn secondary" onclick="shareResults('972543695010')">📱 שלח סיכום</button></div>`;$('#modal').classList.remove('hidden');$('#recommendedBtn').onclick=()=>{const next=recommendedPractice;$('#modal').classList.add('hidden');startLevel(next.idx,shuffle(next.qs),{label:next.label,mode:'review'})}
 }
 window.closeResult=()=>{$('#modal').classList.add('hidden');show('home');renderHome()};window.retry=()=>{const current={idx:session.idx,qs:[...session.sourceQs],label:session.label,mode:session.mode,awardStars:session.awardStars};$('#modal').classList.add('hidden');startLevel(current.idx,shuffle(current.qs),current)};
