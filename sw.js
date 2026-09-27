@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'emt-ashdod-497-v21';
+const CACHE_VERSION = 'emt-ashdod-497-v22';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,8 +10,10 @@ const APP_SHELL = [
   './unified.css',
   './review-theme.css',
   './app.js',
+  './scenario-groups.js?v=2',
   './engine.js',
   './scenarios.js',
+  './additional-scenarios.js?v=2',
   './pwa.js',
   './manifest.json',
   './favicon.svg',
