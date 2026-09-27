@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="מרכז תרגול אינטראקטיבי לחובשים — משחקי חזרה וסימולטור אנמנזה">
+  <meta name="description" content="תרגול לקורס חובשים אשדוד 497: שאלות, מבחנים לדוגמה וסימולטור אנמנזה">
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
   <meta name="theme-color" content="#07131c">
   <meta name="color-scheme" content="dark">
@@ -13,35 +13,23 @@
   <meta name="apple-mobile-web-app-title" content="חובשים 497">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  <title>קורס חובשים 497 — מרכז תרגול לחובשים</title>
+  <title>קורס חובשים 497 · מרכז תרגול</title>
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./unified.css">
+  <link rel="stylesheet" href="./common.css">
 </head>
 <body>
-  <main id="app" class="app-shell" aria-live="polite">
-    <section class="welcome">
-      <div class="welcome-copy">
-        <span class="kicker">תרגול קליני • פרק ב׳</span>
-        <h1>משחק האנמנזה</h1>
-        <p>הזירה לא תספר לך הכול. צריך להסתכל, לבדוק ולשאול את השאלות הנכונות.</p>
-        <button class="primary" id="start-demo">לבחירת תרחיש</button>
-      </div>
-      <div class="dispatch-card">
-        <span class="radio-wave">((( • )))</span>
-        <small>הודעת מוקד</small>
-        <strong>״בת 24, חולשה והתנהגות חריגה״</strong>
-        <span>דירת מגורים • קומה 2</span>
-      </div>
-    </section>
-  </main>
+  <main id="app" class="app-shell"><noscript>כדי להשתמש באתר צריך להפעיל JavaScript.</noscript></main>
+  <script src="./common.js"></script>
   <script src="./scenarios.js"></script>
-  <script src="./additional-scenarios.js?v=5"></script>
+  <script src="./additional-scenarios.js"></script>
+  <script src="./more-scenarios.js"></script>
+  <script src="./scenario-extras.js"></script>
   <script src="./engine.js"></script>
-  <script src="./app.js?v=6"></script>
-  <script src="./scenario-groups.js?v=4"></script>
+  <script src="./app.js"></script>
   <script src="./pwa.js"></script>
 </body>
 </html>
