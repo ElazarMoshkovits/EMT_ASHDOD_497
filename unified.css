@@ -7,7 +7,7 @@
 .review-shell .app{width:min(1180px,100%);padding:28px 0;min-height:calc(100vh - 190px)}
 @media(max-width:760px){.review-shell .app{padding:20px 0}.course-footer{text-align:center;margin-top:34px;justify-content:center}}
 .course-pill.home-link{text-decoration:none;color:#d9e5e8;cursor:pointer}.course-pill.home-link:hover{border-color:var(--mint);color:white}.course-pill:has(#stars),.course-pill:has(#totalStars){direction:ltr}.part-b-picker .section-head>div>span{display:none}
-.intro.intro-single{grid-template-columns:1fr}
+.intro.intro-single{grid-template-columns:1fr}.intro.intro-single h1{font-size:clamp(2.8rem,5.5vw,5.2rem);line-height:.98;letter-spacing:-.04em}
 .course-logo,.brand-mark{font-size:0;background:#071a2f url("./favicon.svg") center/cover no-repeat;border:none;box-shadow:0 0 0 1px #ffffff18,0 8px 22px #0004}.course-logo::after,.brand-mark::after{content:"";display:block;width:100%;height:100%}
 .part-b-hub{max-width:1180px;margin:clamp(38px,6vw,78px) auto 70px}.part-b-hub .section-head>div>span{display:none}.part-b-game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.part-b-game{min-height:245px;border:1px solid #ffffff1d;border-radius:8px 30px 8px 8px;padding:24px;background:linear-gradient(145deg,#123d57,#0c2638);color:white;text-decoration:none;text-align:right;display:grid;grid-template-columns:52px 1fr;gap:16px;cursor:pointer;transition:.2s}.part-b-game:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--mint)}.part-b-game>span{font-size:2rem}.part-b-game small{color:var(--mint);font-weight:800}.part-b-game h3{font-size:1.35rem;margin:9px 0}.part-b-game p{color:#becbd0;line-height:1.55;margin:0 0 18px}.part-b-game b{font-size:.84rem;color:var(--amber)}.mixed-game{background:linear-gradient(145deg,#14554f,#12313c);border-color:#55d6b244}.simulator-game{background:linear-gradient(145deg,#4a272c,#1a2027);border-color:#ff5a5544}.part-b-picker{scroll-margin-top:20px}.part-b-picker>.section-head>p{color:var(--muted);margin:0}
 @media(max-width:900px){.part-b-game-grid{grid-template-columns:1fr}.part-b-game{min-height:185px}}
@@ -31,7 +31,7 @@
   .course-pill,.course-icon{width:100%;min-width:0;min-height:42px;height:42px;padding:0 7px;justify-content:center;border-radius:9px;font-size:.74rem;overflow:hidden;text-overflow:ellipsis}
   .course-pill b{font-size:.9rem}
   .course-icon{font-size:1rem;padding:0}
-  .intro{margin:38px auto 56px;gap:28px}
+  .intro{margin:38px auto 56px;gap:28px}.intro.intro-single h1{font-size:clamp(2.7rem,13vw,3.35rem);line-height:.98}
   .intro h1{font-size:clamp(2.75rem,15vw,4rem);line-height:.92;margin:14px 0 20px}
   .intro p{font-size:1rem;line-height:1.6}
   .section-head{align-items:flex-start;gap:12px;flex-direction:column}
