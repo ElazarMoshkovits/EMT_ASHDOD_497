@@ -163,7 +163,7 @@ function renderReport(){
  <section class="debrief wide"><h2>כל הפעולות בתרחיש</h2><table class="action-table"><thead><tr><th>בוצע</th><th>פעולה</th><th>סוג</th></tr></thead><tbody>${allRows}</tbody></table></section>
  <section class="debrief path wide"><h2>הדרך המומלצת</h2><ol>${s.expectedPath.principles.map((step,i)=>`<li><span>${i+1}</span>${esc(step.map(id=>label(id)!==id?label(id):s.anamnesis.find(q=>q.id===id)?.text||id).join(' / '))}</li>`).join('')}</ol></section>
  ${s.learningObjectives?`<section class="debrief wide goals"><h2>על מה התרגיל בדק</h2><ul>${s.learningObjectives.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></section>`:''}
- <section class="why"><h2>למה זה חשוב</h2>${Object.values(s.feedback.explanations).map(x=>`<p>${esc(x)}</p>`).join('')}<small>בשטח פועלים לפי ההנחיות של המדריך שלנו, ר׳ יחיאל מייברג.</small></section>
+ <section class="why"><h2>למה זה חשוב</h2>${Object.values(s.feedback.explanations).map(x=>`<p>${esc(x)}</p>`).join('')}<small>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של ר׳ יחיאל מייברג.</small></section>
  <div class="c-actions report-actions"><a class="c-btn primary" href="#case/${esc(nextS.id)}">לתרחיש הבא: ${esc(nextS.scene.dispatchReason)}</a><a class="c-btn" href="#simulator">לכל התרחישים</a></div>`);
  document.getElementById('retry').onclick=()=>{report=null;engine=null;delete Course.profile.resume.sim;history.replaceState(null,'','#case/'+s.id);start(s.id)};
  top();
