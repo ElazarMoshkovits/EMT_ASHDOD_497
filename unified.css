@@ -7,6 +7,7 @@
 .review-shell .app{width:min(1180px,100%);padding:28px 0;min-height:calc(100vh - 190px)}
 @media(max-width:760px){.review-shell .app{padding:20px 0}.course-footer{text-align:center;margin-top:34px;justify-content:center}}
 .course-pill.home-link{text-decoration:none;color:#d9e5e8;cursor:pointer}.course-pill.home-link:hover{border-color:var(--mint);color:white}
+.intro.intro-single{grid-template-columns:1fr}
 
 /* Mobile shell and course header */
 @media(max-width:760px){
