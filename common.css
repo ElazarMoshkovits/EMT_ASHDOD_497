@@ -269,3 +269,13 @@ a.scenario-card{display:block;text-decoration:none}
 .install-steps{text-align:right}
 .install-steps ol{margin:8px 0;padding-right:20px;line-height:1.9}
 @media(max-width:360px){.install-text small{display:none}}
+/* שאלות הסיכום בסימולטור: עמוד הסימולטור לא טוען את עיצוב השאלות של חלק א׳ וב׳ */
+.reasoning-card{width:min(800px,100%);margin:28px auto;background:linear-gradient(145deg,#153541,#0b1e27);border:1px solid #ffffff1a;border-radius:8px 30px 8px 8px;padding:clamp(20px,4vw,36px);box-shadow:0 22px 60px #02070a66}
+.reasoning-card .question{font-size:clamp(1.3rem,3vw,1.7rem);line-height:1.4;margin:16px 0 22px}
+.reasoning-card .answers{display:grid;gap:12px}
+.reasoning-card .answer{display:flex;align-items:center;gap:14px;width:100%;text-align:right;border:1px solid #ffffff20;border-radius:8px;padding:14px 16px;background:#ffffff0b;color:#fff;font:inherit;line-height:1.55;transition:.16s}
+.reasoning-card .answer:hover{background:#ffffff14;border-color:var(--c-mint)}
+.reasoning-card .answer .letter{width:32px;height:32px;border-radius:7px;background:#ffffff10;display:grid;place-items:center;font-weight:bold;color:var(--c-muted);flex:0 0 auto}
+.reasoning-card .step-dots i{width:9px;height:9px;border-radius:50%;background:#ffffff1a}
+.reasoning-card .step-dots i.done{background:var(--c-mint)}
+.reasoning-card .step-dots i.now{background:var(--c-amber);box-shadow:0 0 10px var(--c-amber)}
