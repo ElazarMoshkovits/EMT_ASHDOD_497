@@ -59,6 +59,16 @@
     };
   }
 
+  // באפליקציה המותקנת שם האפליקציה כבר מופיע בשורת הכותרת, ולכן מורידים אותו מכותרת הדף
+  // כדי שלא יופיע פעמיים. בלשונית רגילה בדפדפן הכותרת נשארת מלאה.
+  const fullTitle = document.title;
+  function fixTitle() {
+    document.title = isInstalled()
+      ? (fullTitle.replace(/\s*·\s*קורס חובשים 497\s*|\s*קורס חובשים 497\s*·\s*/, '').trim() || fullTitle)
+      : fullTitle;
+  }
+  fixTitle();
+
   window.addEventListener('beforeinstallprompt', event => {
     event.preventDefault();
     deferredPrompt = event;
@@ -66,7 +76,7 @@
     renderBanner();
   });
   window.addEventListener('appinstalled', () => { deferredPrompt = null; removeBanner(); });
-  window.matchMedia('(display-mode: standalone)').addEventListener?.('change', renderBanner);
+  window.matchMedia('(display-mode: standalone)').addEventListener?.('change', () => { fixTitle(); renderBanner(); });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', renderBanner);
   else renderBanner();
 
