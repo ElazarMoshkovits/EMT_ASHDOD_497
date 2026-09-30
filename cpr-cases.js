@@ -77,7 +77,7 @@ let W=null;
 function whatnow(h,o){
  stop();host=h;opts=o||{};
  const best=drillBest().whatnow;
- host.innerHTML=`${head('⏱️ מה עכשיו?',best!=null?`שיא ${best}`:'')}<article class="quiz-card"><h2 class="question">מקרה חדש, 10 שניות להחליט</h2><p class="muted">בכל סבב מגיע מקרה אחר: מבוגר, ילד או תינוק, עם דופק או בלי, חנק, AED ואירועים באמצע ההחייאה. בוחרים מה עושים עכשיו. תשובה מהירה שווה יותר נקודות. שלוש טעויות, והסבב נגמר.</p><div class="c-actions"><button class="c-btn primary" type="button" data-start>להתחיל</button></div></article>`;
+ window.scrollTo(0,0);host.innerHTML=`${head('⏱️ מה עכשיו?',best!=null?`שיא ${best}`:'')}<article class="quiz-card"><h2 class="question">מקרה חדש, 10 שניות להחליט</h2><p class="muted">בכל סבב מגיע מקרה אחר: מבוגר, ילד או תינוק, עם דופק או בלי, חנק, AED ואירועים באמצע ההחייאה. בוחרים מה עושים עכשיו. תשובה מהירה שווה יותר נקודות. שלוש טעויות, והסבב נגמר.</p><div class="c-actions"><button class="c-btn primary" type="button" data-start>להתחיל</button></div></article>`;
  $('[data-back]').onclick=opts.onExit;
  $('[data-start]').onclick=()=>{W={lives:3,score:0,right:0,streak:0,bestStreak:0,deck:[],mistakes:[]};nextCase()};
 }
@@ -86,7 +86,7 @@ function nextCase(){
  if(!W.deck.length)W.deck=shuffle(CASES.map((_,i)=>i));
  const c=CASES[W.deck.pop()](),opts_=[c.ans,...shuffle(c.wrong).slice(0,3)];
  W.cur=c;W.opts=opts_;W.locked=false;W.start=performance.now();
- host.innerHTML=`${head('⏱️ מה עכשיו?',`${W.score} נק׳`)}<article class="quiz-card"><div class="whatnow-top"><span class="hearts" aria-label="${W.lives} לבבות">${'♥'.repeat(W.lives)}<span class="lost">${'♥'.repeat(3-W.lives)}</span></span>${W.streak>1?`<span class="topic">🔥 ${W.streak} ברצף</span>`:''}</div><div class="progress time-bar"><i data-time style="width:100%"></i></div><div class="scene-box">${esc(c.scene)}</div><h2 class="question small">מה עושים עכשיו?</h2>${answers(opts_,shuffle([0,1,2,3]))}<div data-fb aria-live="polite"></div></article>`;
+ window.scrollTo(0,0);host.innerHTML=`${head('⏱️ מה עכשיו?',`${W.score} נק׳`)}<article class="quiz-card"><div class="whatnow-top"><span class="hearts" aria-label="${W.lives} לבבות">${'♥'.repeat(W.lives)}<span class="lost">${'♥'.repeat(3-W.lives)}</span></span>${W.streak>1?`<span class="topic">🔥 ${W.streak} ברצף</span>`:''}</div><div class="progress time-bar"><i data-time style="width:100%"></i></div><div class="scene-box">${esc(c.scene)}</div><h2 class="question small">מה עושים עכשיו?</h2>${answers(opts_,shuffle([0,1,2,3]))}<div data-fb aria-live="polite"></div></article>`;
  $('[data-back]').onclick=()=>{stop();whatnow(host,opts)};
  host.querySelectorAll('.answer').forEach(b=>b.onclick=()=>answerCase(+b.dataset.choice,b));
  every(()=>{const left=TIME-(performance.now()-W.start),bar=$('[data-time]');if(bar){bar.style.width=Math.max(0,left/TIME*100)+'%';bar.classList.toggle('low',left<3000)}if(left<=0)answerCase(-1,null)},100);
@@ -110,7 +110,7 @@ function answerCase(choice,button){
 }
 function finishWhatnow(){
  stop();const b=drillBest(),rec=W.score>(b.whatnow||0);b.whatnow=Math.max(b.whatnow||0,W.score);Course.addXp(W.score);Course.save();Course.beep('win');
- host.innerHTML=`${head('⏱️ מה עכשיו?',`${W.score} נק׳`)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${W.right>=15?'🏆':'⏱️'}</div><h2 class="question">${rec&&W.score?'שיא חדש!':'הסבב נגמר'}</h2>
+ window.scrollTo(0,0);host.innerHTML=`${head('⏱️ מה עכשיו?',`${W.score} נק׳`)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${W.right>=15?'🏆':'⏱️'}</div><h2 class="question">${rec&&W.score?'שיא חדש!':'הסבב נגמר'}</h2>
  <div class="result-grid"><div class="stat"><b>${W.score}</b><small>נקודות</small></div><div class="stat"><b>${W.right}</b><small>מקרים נכונים</small></div><div class="stat"><b>${W.bestStreak}</b><small>רצף הכי ארוך</small></div></div>
  <h3 class="drill-sub">לחזור עליהם</h3><div class="insights">${W.mistakes.map(m=>`<div class="insight"><b>${esc(m.scene)}</b><span class="best-line">הנכון: ${esc(m.ans)}</span><br><small class="muted">${esc(m.why)}</small></div>`).join('')}</div>
  <div class="c-actions"><button class="c-btn primary" type="button" data-again>סבב חדש</button><button class="c-btn" type="button" data-menu>לתפריט</button></div></article>`;
@@ -239,7 +239,7 @@ const clockStr=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
 function branch(h,o){
  stop();host=h;opts=o||{};
  const best=drillBest().branch||{};
- host.innerHTML=`${head('🔀 תרחישים מתפצלים','בחרו תרחיש')}<article class="quiz-card"><h2 class="question">כל החלטה משנה את ההמשך</h2><p class="muted">כאן אין ״נסו שוב״. כל בחירה נשארת: היא משנה את סיכויי המטופל, מוסיפה זמן, ולפעמים מובילה למקום אחר לגמרי. בסוף רואים לאן הגעתם ומה היה אפשר לעשות אחרת.</p><div class="scenario-list">${BRANCH.map((x,i)=>`<button class="scenario-pick" type="button" data-case="${i}"><span aria-hidden="true">${x.icon}</span><div><b>${esc(x.name)}</b><small>${esc(x.desc)}${best[x.id]!=null?` · שיא ${best[x.id]}%`:''}</small></div></button>`).join('')}</div></article>`;
+ window.scrollTo(0,0);host.innerHTML=`${head('🔀 תרחישים מתפצלים','בחרו תרחיש')}<article class="quiz-card"><h2 class="question">כל החלטה משנה את ההמשך</h2><p class="muted">כאן אין ״נסו שוב״. כל בחירה נשארת: היא משנה את סיכויי המטופל, מוסיפה זמן, ולפעמים מובילה למקום אחר לגמרי. בסוף רואים לאן הגעתם ומה היה אפשר לעשות אחרת.</p><div class="scenario-list">${BRANCH.map((x,i)=>`<button class="scenario-pick" type="button" data-case="${i}"><span aria-hidden="true">${x.icon}</span><div><b>${esc(x.name)}</b><small>${esc(x.desc)}${best[x.id]!=null?` · שיא ${best[x.id]}%`:''}</small></div></button>`).join('')}</div></article>`;
  $('[data-back]').onclick=opts.onExit;
  host.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>startBranch(+b.dataset.case));
 }
@@ -249,7 +249,7 @@ function renderNode(){
  const n=B.c.nodes[B.node];
  if(n.end||n.fatal){finishBranch();return}
  const order=shuffle(n.choices.map((_,i)=>i));
- host.innerHTML=`${head(`${B.c.icon} ${esc(B.c.name)}`,`⏱ ${clockStr(B.clock)} מתחילת האירוע`)}<article class="quiz-card"><div class="meter-row"><span>סיכויי המטופל</span><b>${B.meter}%</b></div><div class="progress meter ${meterClass(B.meter)}"><i style="width:${B.meter}%"></i></div><div class="scene-box">${esc(n.text)}</div><h2 class="question small">מה עושים?</h2>${answers(n.choices.map(x=>x.t),order)}<div data-fb aria-live="polite"></div></article>`;
+ window.scrollTo(0,0);host.innerHTML=`${head(`${B.c.icon} ${esc(B.c.name)}`,`⏱ ${clockStr(B.clock)} מתחילת האירוע`)}<article class="quiz-card"><div class="meter-row"><span>סיכויי המטופל</span><b>${B.meter}%</b></div><div class="progress meter ${meterClass(B.meter)}"><i style="width:${B.meter}%"></i></div><div class="scene-box">${esc(n.text)}</div><h2 class="question small">מה עושים?</h2>${answers(n.choices.map(x=>x.t),order)}<div data-fb aria-live="polite"></div></article>`;
  $('[data-back]').onclick=()=>branch(host,opts);
  host.querySelectorAll('.answer').forEach(b=>b.onclick=()=>chooseBranch(+b.dataset.choice,b));
 }
@@ -267,7 +267,7 @@ function finishBranch(){
  const text=fatal?n.fatal:n.end[B.meter>=75?0:B.meter>=50?1:2];
  const b=drillBest();b.branch=b.branch||{};b.branch[B.c.id]=Math.max(b.branch[B.c.id]||0,pct);Course.addXp(pct*3);Course.save();Course.beep(fatal?'bad':'win');
  const good=B.path.filter(p=>p.good).length,bad=B.path.filter(p=>!p.good);
- host.innerHTML=`${head(`${B.c.icon} ${esc(B.c.name)}`,`${pct}%`)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${fatal?'⚠️':pct>=75?'🚑':pct>=50?'🩺':'💔'}</div><h2 class="question">${fatal?'האירוע נגמר':'סוף האירוע'}</h2><div class="scene-box">${esc(text)}</div>
+ window.scrollTo(0,0);host.innerHTML=`${head(`${B.c.icon} ${esc(B.c.name)}`,`${pct}%`)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${fatal?'⚠️':pct>=75?'🚑':pct>=50?'🩺':'💔'}</div><h2 class="question">${fatal?'האירוע נגמר':'סוף האירוע'}</h2><div class="scene-box">${esc(text)}</div>
  <div class="result-grid"><div class="stat"><b>${pct}%</b><small>סיכויי המטופל</small></div><div class="stat"><b>${good}/${B.path.length}</b><small>החלטות נכונות</small></div><div class="stat"><b>${clockStr(B.clock)}</b><small>זמן מתחילת האירוע</small></div></div>
  ${bad.length?`<h3 class="drill-sub">מה היה אפשר לעשות אחרת</h3><div class="insights">${bad.map(p=>`<div class="insight err ${p.dv<=-20?'critical':'minor'}"><b>${esc(p.text)}</b>בחרתם: ${esc(p.choice)}.${p.fb?` <small class="muted">${esc(p.fb)}</small>`:''}<br><span class="best-line">הנכון: ${esc(p.best)}</span></div>`).join('')}</div>`:'<div class="scenario-feedback good"><b>כל ההחלטות נכונות.</b> עבודה מסודרת מהכניסה לזירה ועד המסירה.</div>'}
  <div class="c-actions"><button class="c-btn primary" type="button" data-again>שוב את אותו תרחיש</button><button class="c-btn" type="button" data-more>תרחיש אחר</button></div></article>`;
