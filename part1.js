@@ -1,4 +1,4 @@
-// חלק א׳: תפריט, תרגול לפי קטגוריה, תרגול יומי, מבחן לדוגמה, תרחישי החייאה, סדר פעולות ומשחק זיכרון.
+// חלק א׳: תפריט, תרגול לפי קטגוריה, תרגול יומי, מבחן לדוגמה, תרחישי החייאה, סדר פעולות, משחק זיכרון ותרגולי ידיים.
 (function(){
 const {esc,shuffle}=Course;
 const DATA=window.PART1,LEVELS=DATA.levels;
@@ -9,7 +9,7 @@ LEVELS.forEach((level,i)=>level.qs.forEach(q=>{q.cat=level.name;q.levelIndex=i;A
 const BY_ID=new Map(ALL.map(q=>[q.id,q]));
 const isA=id=>BY_ID.has(id);
 const levelIds=level=>level.qs.map(q=>q.id);
-const VIEWS=['home','play','resus','seq','memory'];
+const VIEWS=['home','play','resus','seq','memory','rhythm','aed'];
 
 // המרה חד־פעמית של טעויות ושאלות שמורות מהגרסה הקודמת, שנשמרו לפי טקסט.
 (function migrateTexts(){
@@ -22,7 +22,7 @@ const VIEWS=['home','play','resus','seq','memory'];
 
 function show(view){VIEWS.forEach(v=>$('#'+v).classList.toggle('hidden',v!==view));window.scrollTo(0,0)}
 function goHome(){Course.nav.home()}
-Course.nav.init(view=>{if(view==='home'){Quiz.stop();show('home');renderHome()}});
+Course.nav.init(view=>{if(view==='home'){Quiz.stop();CprDrills.stop();show('home');renderHome()}});
 if(location.hash)history.replaceState({view:'home'},'',location.pathname+location.search);
 
 // ---- תפריט ----
@@ -202,12 +202,16 @@ function memoryWin(moves,pairs){
  card.querySelector('[data-again]').onclick=()=>{Course.closeModal(true);startMemory()};card.querySelector('[data-menu]').onclick=()=>{Course.closeModal(true);goHome()};
 }
 
+// ---- תרגולי ידיים בזמן אמת (cpr-drills.js) ----
+function openDrill(view){show(view);if(!history.state||history.state.view!==view)Course.nav.push(view);CprDrills[view]($('#'+view),{onExit:()=>{CprDrills.stop();goHome()}})}
+
 // ---- חיבור כפתורים ----
 $('#dailyBtn').onclick=()=>startQuiz(dailyItems(),{label:'תרגול יומי · חלק א׳',mode:'bank'});
 $('#bankBtn').onclick=()=>{const items=bankItems();if(!items.length){Course.toast('אין כרגע שאלות בבנק. טעויות ושאלות שתשמרו יופיעו כאן.');return}startQuiz(items,{label:'בנק הטעויות · חלק א׳',mode:'bank'})};
 $('#examBtn').onclick=async()=>{if(await Course.confirm('מבחן לדוגמה','40 שאלות מכל הקטגוריות, 45 דקות. התשובות והציון יוצגו רק בסוף, כמו במבחן אמיתי. אפשר לחזור לשאלות קודמות ולשנות תשובה.','להתחיל','לא עכשיו'))startQuiz(examItems(),{label:'מבחן לדוגמה · חלק א׳',mode:'exam',examMinutes:45})};
 $('#survivalBtn').onclick=()=>startQuiz(shuffle(ALL).slice(0,30),{label:'אתגר שלושה לבבות',mode:'challenge',lives:true});
 $('#resusBtn').onclick=resusMenu;$('#seqBtn').onclick=seqMenu;$('#memoryBtn').onclick=startMemory;
+$('#rhythmBtn').onclick=()=>openDrill('rhythm');$('#aedBtn').onclick=()=>openDrill('aed');
 Course.mountHeader({subtitle:'חלק א׳ · החייאה ויסודות'});
 Course.onChange(()=>{if(!$('#home').classList.contains('hidden'))renderHome()});
 renderHome();

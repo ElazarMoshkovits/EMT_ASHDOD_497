@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'emt-ashdod-497-v36';
+const CACHE_VERSION = 'emt-ashdod-497-v37';
 const APP_SHELL = [
   './',
   './index.html',
@@ -13,6 +13,7 @@ const APP_SHELL = [
   './quiz.js',
   './part1-data.js',
   './part1.js',
+  './cpr-drills.js',
   './part2-data.js',
   './part2.js',
   './app.js',
