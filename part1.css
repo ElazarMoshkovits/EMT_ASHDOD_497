@@ -42,3 +42,6 @@ body{background:linear-gradient(145deg,#061017,#0c222c 65%,#07151d);font-size:16
 .aed-drill .drill-box{padding:8px}.aed-drill .drill-box b{font-size:clamp(26px,7vw,40px)}.aed-drill .press-pad{min-height:clamp(140px,26vh,240px)}
 @media(max-width:420px){.setup-grid.two{grid-template-columns:1fr}.aed-actions .c-btn{padding:8px 6px}}
 @media(prefers-reduced-motion:reduce){.press-pad.hit,.aed-screen.shock,.aed-actions .shock.ready{animation:none}}
+.whatnow-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.hearts .lost{color:#ffffff22}.time-bar{margin-bottom:6px}.time-bar i{transition:width .1s linear}.time-bar i.low{background:var(--red)}
+.meter-row{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin-bottom:6px}.meter-row b{color:var(--text)}.progress.meter i{transition:width .5s}.progress.meter.good i{background:var(--green)}.progress.meter.mid i{background:var(--gold)}.progress.meter.low i{background:var(--red)}
+.best-line{color:var(--green);font-weight:700}
