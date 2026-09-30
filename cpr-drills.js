@@ -52,7 +52,7 @@ const band=r=>r<100?'slow':r>120?'fast':'good';
 function rhythm(h,o){
  stop();host=h;opts=o||{};
  const cfg=R&&R.cfg?R.cfg:{metro:'on',cycles:'5'},best=bestOf('rhythm');
- host.innerHTML=`${head('🥁 מאמן קצב עיסויים',best!=null?`שיא ${best}%`:'הגדרות')}<article class="quiz-card"><h2 class="question">מקישים בקצב של העיסויים</h2><p class="muted">מקישים על המשטח הגדול (או על מקש הרווח) עם כל לחיצה על החזה. אחרי 30 עיסויים נותנים 2 הנשמות וחוזרים מהר לעסות. היעד: 100–120 בדקה, ועד 10 שניות בלי עיסויים בזמן ההנשמות.</p>
+ window.scrollTo(0,0);host.innerHTML=`${head('🥁 מאמן קצב עיסויים',best!=null?`שיא ${best}%`:'הגדרות')}<article class="quiz-card"><h2 class="question">מקישים בקצב של העיסויים</h2><p class="muted">מקישים על המשטח הגדול (או על מקש הרווח) עם כל לחיצה על החזה. אחרי 30 עיסויים נותנים 2 הנשמות וחוזרים מהר לעסות. היעד: 100–120 בדקה, ועד 10 שניות בלי עיסויים בזמן ההנשמות.</p>
  <h3 class="drill-sub">מטרונום</h3>${choice('metro',[['on','🔊','מטרונום','צליל בכל לחיצה, לאורך כל התרגול'],['fade','🔉','נעלם בהדרגה','נותן את הקצב בהתחלה ונעלם אחרי 30 לחיצות'],['off','🔇','בלי מטרונום','שומרים על הקצב לבד']],cfg.metro)}
  <h3 class="drill-sub">אורך</h3>${choice('cycles',[['1','1️⃣','סדרה אחת','30 עיסויים'],['5','🔁','5 סדרות','30:2 חמש פעמים, כשתי דקות']],cfg.cycles)}
  <p class="drill-note">הטלפון מודד קצב, לא עומק. אם מתרגלים על בובה או על כרית ומקישים ביד השנייה: לוחצים 5–6 ס״מ ומשחררים את החזה עד הסוף בכל לחיצה.</p>
@@ -65,7 +65,7 @@ function rhythm(h,o){
 function rhythmPlay(cfg){
  stop();
  R={cfg,cycles:+cfg.cycles,cycle:0,count:0,phase:'compress',last:null,recent:[],intervals:[],gaps:[],pauses:[],pauseStart:null,breaths:0,breathAt:0,fastBreaths:0,started:false};
- host.innerHTML=`${head('🥁 מאמן קצב עיסויים',`סדרה 1 מתוך ${R.cycles}`,0)}<article class="quiz-card drill">
+ window.scrollTo(0,0);host.innerHTML=`${head('🥁 מאמן קצב עיסויים',`סדרה 1 מתוך ${R.cycles}`,0)}<article class="quiz-card drill">
  <div class="drill-top"><div class="drill-box"><b data-count>0</b><small>מתוך 30 עיסויים</small></div><div class="drill-box" data-ratebox><b data-rate>—</b><small data-ratelbl>לחיצות בדקה</small></div></div>
  <div class="rate-gauge" aria-hidden="true"><span class="zone"></span><i data-needle></i><em style="left:0">60</em><em style="left:40%">100</em><em style="left:60%">120</em><em style="left:100%">160</em></div>
  <p class="drill-msg" data-msg aria-live="polite">הקישו כדי להתחיל. הספירה מתחילה בלחיצה הראשונה.</p>
@@ -141,7 +141,7 @@ function rhythmFinish(){
  if(R.fastBreaths)tips.push(['הנשמות מהירות','כל הנשמה נמשכת כשנייה, עד שרואים את החזה עולה. הנשמה מהירה וחזקה מכניסה אוויר לקיבה.']);
  if(R.gaps.length)tips.push(['עצירות באמצע סדרה',`העיסויים נעצרו ${R.gaps.length} פעמים באמצע סדרה. כל עצירה מורידה את לחץ הדם, ולוקח כמה לחיצות לבנות אותו מחדש.`]);
  tips.push(['עומק ושחרור','התרגול לא מודד עומק. בשטח: 5–6 ס״מ, מרפקים ישרים, ושחרור מלא של החזה בכל לחיצה.']);
- host.innerHTML=`${head('🥁 מאמן קצב עיסויים',`${pct}%`,100)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${pct>=85?'💪':'🥁'}</div><h2 class="question">סיימתם ${R.cycles===1?'את הסדרה':`${R.cycles} סדרות`}</h2>
+ window.scrollTo(0,0);host.innerHTML=`${head('🥁 מאמן קצב עיסויים',`${pct}%`,100)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${pct>=85?'💪':'🥁'}</div><h2 class="question">סיימתם ${R.cycles===1?'את הסדרה':`${R.cycles} סדרות`}</h2>
  <div class="result-grid"><div class="stat"><b>${pct}%</b><small>ציון</small></div><div class="stat"><b>${Math.round(avg)||'—'}</b><small>קצב ממוצע</small></div><div class="stat"><b>${inRange}%</b><small>לחיצות בטווח</small></div></div>
  <div class="rate-split" role="img" aria-label="איטי ${Math.round(split.slow/total*100)}%, בטווח ${inRange}%, מהיר ${Math.round(split.fast/total*100)}%"><i class="slow" style="flex:${split.slow}"></i><i class="good" style="flex:${split.good}"></i><i class="fast" style="flex:${split.fast}"></i></div>
  <div class="rate-legend"><span>איטי ${Math.round(split.slow/total*100)}%</span><span>בטווח ${inRange}%</span><span>מהיר ${Math.round(split.fast/total*100)}%</span></div>
@@ -162,7 +162,7 @@ let A=null;
 function aed(h,o){
  stop();host=h;opts=o||{};
  const cfg=A&&A.cfg?A.cfg:{len:'short'},best=bestOf('aed');
- host.innerHTML=`${head('⚡ מחזור AED בזמן אמת',best!=null?`שיא ${best}%`:'הגדרות')}<article class="quiz-card"><h2 class="question">מעסים, וה־AED מנהל את הזמן</h2><p class="muted">לוחצים ומחזיקים את המשטח (או את מקש הרווח) כל עוד מעסים, ומרימים את היד כשמפסיקים. בסוף כל מחזור ה־AED מנתח קצב: עוזבים את המטופל, פועלים לפי המכשיר וחוזרים לעסות מהר. יש שלושה מחזורים, ובאמצע יקרו דברים שצריך להגיב אליהם.</p>
+ window.scrollTo(0,0);host.innerHTML=`${head('⚡ מחזור AED בזמן אמת',best!=null?`שיא ${best}%`:'הגדרות')}<article class="quiz-card"><h2 class="question">מעסים, וה־AED מנהל את הזמן</h2><p class="muted">לוחצים ומחזיקים את המשטח (או את מקש הרווח) כל עוד מעסים, ומרימים את היד כשמפסיקים. בסוף כל מחזור ה־AED מנתח קצב: עוזבים את המטופל, פועלים לפי המכשיר וחוזרים לעסות מהר. יש שלושה מחזורים, ובאמצע יקרו דברים שצריך להגיב אליהם.</p>
  ${choice('len',[['short','⏱️','מקוצר','מחזורים של 30 שניות'],['real','🕑','זמן אמת','מחזורים של 2 דקות, כמו בשטח']],cfg.len)}
  <p class="drill-note">נמדד: כמה מהזמן הידיים היו על החזה, כמה נמשכה כל הפסקה סביב האנליזה (היעד: עד 10 שניות) וטעויות בטיחות.</p>
  <div class="c-actions"><button class="c-btn primary" type="button" data-start>להתחיל</button></div></article>`;
@@ -175,7 +175,7 @@ function aedPlay(cfg){
  stop();
  const plan=shuffle([true,false,Math.random()<.5]);
  A={cfg,cycleMs:cfg.len==='real'?120000:30000,plan,round:0,phase:'wait',compressing:false,t0:0,cycleStart:0,phaseAt:0,lastTick:0,onTime:0,lastChange:0,releasedAt:null,analyzeMs:0,cleared:false,unplanned:[],log:[],errors:[],once:{},swap:null};
- host.innerHTML=`${head('⚡ מחזור AED בזמן אמת',`מחזור 1 מתוך ${ROUNDS}`,0)}<article class="quiz-card drill aed-drill">
+ window.scrollTo(0,0);host.innerHTML=`${head('⚡ מחזור AED בזמן אמת',`מחזור 1 מתוך ${ROUNDS}`,0)}<article class="quiz-card drill aed-drill">
  <div class="aed-screen" data-aed><span class="aed-tag">AED</span><b data-voice aria-live="assertive">מחובר ומוכן. התחילו לעסות.</b></div>
  <div class="drill-top"><div class="drill-box"><b data-clock>${clock(A.cycleMs)}</b><small data-clocklbl>עד האנליזה</small></div><div class="drill-box" data-offbox><b data-off>0.0</b><small>שנ׳ בלי עיסויים</small></div></div>
  <div class="drill-event" data-event aria-live="polite"></div>
@@ -309,7 +309,7 @@ function aedFinish(t){
  else tips.push(['הפסקות קצרות','כל ההפסקות סביב האנליזה היו עד 10 שניות.']);
  if(A.unplanned.length)tips.push(['עצירות באמצע מחזור',`הידיים עזבו את החזה ${A.unplanned.length} פעמים באמצע מחזור (${sec(unplanned)} שניות בסך הכול).`]);
  if(ccf<goal)tips.push(['זמן עיסויים נמוך',`הידיים היו על החזה ${ccf}% מהזמן. ${A.cfg.len==='real'?'היעד הוא 80% ומעלה.':'במחזורים מקוצרים ההפסקות תופסות חלק גדול יותר, אבל כדאי לשאוף ל־65% ומעלה.'}`]);
- host.innerHTML=`${head('⚡ מחזור AED בזמן אמת',`${pct}%`,100)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${pct>=85&&!crit?'🚑':'⚡'}</div><h2 class="question">הצוות המתקדם הגיע</h2><p class="muted">שלושה מחזורים הושלמו. כך הלך:</p>
+ window.scrollTo(0,0);host.innerHTML=`${head('⚡ מחזור AED בזמן אמת',`${pct}%`,100)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${pct>=85&&!crit?'🚑':'⚡'}</div><h2 class="question">הצוות המתקדם הגיע</h2><p class="muted">שלושה מחזורים הושלמו. כך הלך:</p>
  <div class="result-grid"><div class="stat"><b>${pct}%</b><small>ציון</small></div><div class="stat"><b>${ccf}%</b><small>ידיים על החזה</small></div><div class="stat"><b>${sec(maxOff)}</b><small>שנ׳ הפסקה ארוכה</small></div></div>
  <div class="insights">${A.log.map((r,i)=>`<div class="insight round-row${r.handsOff>PAUSE_GOAL?' over':''}"><b>מחזור ${i+1} · ${r.shock?'⚡ שוק מומלץ':'שוק לא מומלץ'}</b>${sec(r.handsOff)} שניות בלי עיסויים · חזרה לעיסויים ${sec(r.resume)} שניות אחרי הוראת המכשיר</div>`).join('')}</div>
  ${A.errors.length?`<h3 class="drill-sub">טעויות</h3><div class="insights">${A.errors.map(e=>`<div class="insight err ${e.kind}"><b>${e.kind==='critical'?'בטיחות':'טיפול'} · מחזור ${e.round+1}</b>${esc(e.text)}</div>`).join('')}</div>`:'<div class="scenario-feedback good"><b>בלי טעויות בטיחות.</b> לא נגעתם במטופל בזמן אנליזה ושוק, והגבתם נכון לעייפות.</div>'}
