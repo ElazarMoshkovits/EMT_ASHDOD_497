@@ -12,7 +12,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 function shuffle(list){const a=list.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 const dayStart=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
 
-function fresh(){return{schema:4,name:DEFAULT_NAME,xp:0,sound:false,timer:true,seen:{},bank:{},saved:[],legacyStars:{},starCache:{},simBest:{},resusBest:{},seqBest:{},memoryWins:0,examBest:{},guideSeen:false,last:null,resume:{}}}
+function fresh(){return{schema:4,name:DEFAULT_NAME,xp:0,sound:false,timer:true,seen:{},bank:{},saved:[],legacyStars:{},starCache:{},simBest:{},resusBest:{},seqBest:{},memoryWins:0,drillBest:{},examBest:{},guideSeen:false,last:null,resume:{}}}
 
 // המרה מהמבנה הישן של הפרופיל. שאלות חלק א׳ נשמרו לפי טקסט, ולכן ההמרה שלהן נגמרת בעמוד חלק א׳.
 function migrate(raw){
@@ -154,7 +154,7 @@ function refreshHeader(){
 
 // ---- הגדרות ואיפוס ----
 const RESET_SCOPES={
- a:{label:'חלק א׳',text:'הכוכבים, התשובות, הטעויות והשאלות השמורות של חלק א׳, וגם השיאים בתרחישי ההחייאה, בסדר הטיפול ובמשחק הזיכרון.'},
+ a:{label:'חלק א׳',text:'הכוכבים, התשובות, הטעויות והשאלות השמורות של חלק א׳, וגם השיאים בתרחישי ההחייאה, בסדר הטיפול, במשחק הזיכרון ובתרגולי הידיים.'},
  b:{label:'חלק ב׳',text:'הכוכבים, התשובות, הטעויות והשאלות השמורות של חלק ב׳.'},
  sim:{label:'הסימולטור',text:'הציונים הטובים ביותר בתרחישי האנמנזה.'},
  all:{label:'הכול',text:'כל ההתקדמות בשני החלקים ובסימולטור, כולל הנקודות. השם וההגדרות נשארים.'}
@@ -163,7 +163,7 @@ const isA=id=>!id.startsWith('p2-');
 function resetScope(scope){
  const dropIds=pred=>{Object.keys(profile.seen).forEach(id=>{if(pred(id))delete profile.seen[id]});Object.keys(profile.bank).forEach(id=>{if(pred(id))delete profile.bank[id]});profile.saved=profile.saved.filter(id=>!pred(id))};
  const dropStars=pre=>{[profile.legacyStars,profile.starCache].forEach(o=>Object.keys(o).forEach(k=>{if(k.startsWith(pre))delete o[k]}))};
- if(scope==='a'||scope==='all'){dropIds(isA);dropStars('a:');profile.resusBest={};profile.seqBest={};profile.memoryWins=0;delete profile.examBest.a;delete profile.resume.a;delete profile.pendingA}
+ if(scope==='a'||scope==='all'){dropIds(isA);dropStars('a:');profile.resusBest={};profile.seqBest={};profile.drillBest={};profile.memoryWins=0;delete profile.examBest.a;delete profile.resume.a;delete profile.pendingA}
  if(scope==='b'||scope==='all'){dropIds(id=>!isA(id));dropStars('b:');delete profile.examBest.b;delete profile.resume.b}
  if(scope==='sim'||scope==='all'){profile.simBest={};delete profile.resume.sim}
  if(scope==='all'){profile.xp=0;profile.last=null}
