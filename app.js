@@ -36,9 +36,9 @@ function renderHome(){
  const bank=due?`<a class="home-card bank" href="${bankA.due>=bankB.due?'review.html':'part2-review.html'}"><small>בנק הטעויות</small><b>${due} שאלות מחכות לחזרה היום</b><span>←</span></a>`:'';
  shell(`<section class="home-top"><div class="home-hello"><span class="kicker">קורס חובשים אשדוד 497</span><h1>שלום${name}. <em>מה מתרגלים היום?</em></h1></div>${cont||bank?`<div class="home-cards">${cont}${bank}</div>`:''}</section>
  <section class="module-section"><div class="module-grid three">
-  <a class="module-card review-module" href="review.html"><span class="module-number" aria-hidden="true">א׳</span><div><small>חלק א׳</small><h3>החייאה ויסודות</h3><p>אנטומיה, החייאה, AED, חנק ושטח. תרגול יומי, מבחן לדוגמה, תרחישים, סדר פעולות ומשחק זיכרון.</p><div class="mod-progress"><span>${st.a}/${st.maxA} ★</span><i><em style="width:${st.a/st.maxA*100}%"></em></i></div></div></a>
-  <a class="module-card part2-module" href="part2-review.html"><span class="module-number" aria-hidden="true">ב׳</span><div><small>חלק ב׳</small><h3>מצבי חירום רפואיים</h3><p>שבעה נושאים: אנמנזה, עילפון ופרכוסים, שבץ, סוכרת, הרעלות, נשימה ולב.</p><div class="mod-progress"><span>${st.b}/${st.maxB} ★</span><i><em style="width:${st.b/st.maxB*100}%"></em></i></div></div></a>
-  <a class="module-card anamnesis-module" href="#simulator"><span class="module-number" aria-hidden="true">🚨</span><div><small>חלק ב׳ · בזירה</small><h3>סימולטור אנמנזה</h3><p>${SCENARIOS.length} תרחישים. מעריכים, שואלים, מטפלים, מוסרים דיווח ומקבלים תחקיר.</p><div class="mod-progress"><span>${done.length}/${SCENARIOS.length} תרחישים${done.length?` · ממוצע ${avg}`:''}</span><i><em style="width:${done.length/SCENARIOS.length*100}%"></em></i></div></div></a>
+  <a class="module-card review-module" href="review.html"><span class="module-number" aria-hidden="true">א׳</span><div><small>חלק א׳</small><h3>החייאה ויסודות</h3><p>יסודות הקורס: אנטומיה ומערכות הגוף, החייאה ו־AED, חנק, ילדים ועבודה בשטח. שאלות, מבחן לדוגמה, תרחישים ומשחקי תרגול.</p><div class="mod-progress"><span>${st.a}/${st.maxA} ★</span><i><em style="width:${st.a/st.maxA*100}%"></em></i></div></div></a>
+  <a class="module-card part2-module" href="part2-review.html"><span class="module-number" aria-hidden="true">ב׳</span><div><small>חלק ב׳</small><h3>מצבי חירום רפואיים</h3><p>מצבי חירום רפואיים נפוצים: גישה לחולה, מצבים נוירולוגיים, סוכרת, הרעלות, נשימה ולב. שאלות, מבחן לדוגמה ותרחישים מתפצלים.</p><div class="mod-progress"><span>${st.b}/${st.maxB} ★</span><i><em style="width:${st.b/st.maxB*100}%"></em></i></div></div></a>
+  <a class="module-card anamnesis-module" href="#simulator"><span class="module-number" aria-hidden="true">🚨</span><div><small>חלק ב׳ · בזירה</small><h3>סימולטור אנמנזה</h3><p>${SCENARIOS.length} תרחישי שטח מגוונים. מעריכים את המטופל, שואלים, מטפלים, מוסרים דיווח ומקבלים תחקיר.</p><div class="mod-progress"><span>${done.length}/${SCENARIOS.length} תרחישים${done.length?` · ממוצע ${avg}`:''}</span><i><em style="width:${done.length/SCENARIOS.length*100}%"></em></i></div></div></a>
  </div></section>`);
  top();
 }
@@ -105,12 +105,12 @@ function bindGame(){
  document.getElementById('finish').onclick=finishFlow;
  document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{Course.beep('click');activeTab=t.dataset.tab;renderGame()});
  const fc=document.querySelector('[data-fb-close]');if(fc)fc.onclick=()=>{lastFeedback=null;document.querySelector('.sim-feedback')?.remove()};
- const rm=document.querySelector('[data-remeasure]');if(rm)rm.onclick=()=>{const before=snapshot();const r=engine.remeasure();after(r,before)};
- document.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>{const item=engine.allActions().find(a=>a.id===b.dataset.action),before=snapshot();before.item=item;const r=engine.perform(b.dataset.action);after(r,before)});
- document.querySelectorAll('[data-question]').forEach(b=>b.onclick=()=>{const before=snapshot(),r=engine.ask(b.dataset.question);after(r,before)});
+ const rm=document.querySelector('[data-remeasure]');if(rm)rm.onclick=()=>{const before=snapshot();const r=engine.remeasure();after(r,before,{sel:'[data-remeasure]',i:0})};
+ document.querySelectorAll('[data-action]').forEach((b,i)=>b.onclick=()=>{const item=engine.allActions().find(a=>a.id===b.dataset.action),before=snapshot();before.item=item;const r=engine.perform(b.dataset.action);after(r,before,{sel:'[data-action]:not(:disabled)',i})});
+ document.querySelectorAll('[data-question]').forEach((b,i)=>b.onclick=()=>{const before=snapshot(),r=engine.ask(b.dataset.question);after(r,before,{sel:'[data-question]',i})});
 }
 function snapshot(){return{facts:engine.state.facts.length,events:engine.state.events.length,unlocked:engine.state.unlocked.length,log:engine.state.log.length}}
-function after(r,before){
+function after(r,before,focus){
  const st=engine.state,newEvents=st.log.slice(before.log).filter(l=>l.kind==='event').map(l=>l.text);
  let kind='good';
  if(!r.ok)kind='bad';else if(newEvents.length)kind='event';else if(r.critical||(before.item&&(before.item.score?.points||0)<0))kind='bad';
@@ -118,6 +118,8 @@ function after(r,before){
  if(!r.ok)Course.beep('warning');else if(newEvents.length)Course.beep('deterioration');else if(kind==='bad')Course.beep('warning');else if(st.unlocked.length>before.unlocked)Course.beep('unlock');else Course.beep(st.facts.length>before.facts?'fact':'click');
  if(r.ok)persistSim();
  const y=window.scrollY;renderGame();window.scrollTo(0,y);
+ // הכותרת והתוכן נבנים מחדש אחרי כל פעולה, ולכן מחזירים את המיקוד לכפתור הקרוב כדי שמשתמשי מקלדת וקוראי מסך לא יאבדו את המקום
+ if(focus){const list=document.querySelectorAll(focus.sel),el=list[Math.min(focus.i,list.length-1)]||document.querySelector('.tab.active');if(el)el.focus({preventScroll:true})}
 }
 
 // ---------- סיום: חשד, פינוי ודיווח ----------
@@ -159,7 +161,7 @@ function renderReport(){
  ${critItems.length?`<section class="debrief danger wide"><h2>טעויות קריטיות</h2><ul>${critItems.map(c=>`<li><b>${c.k==='לא בוצע'?'לא בוצע:':'בוצע:'}</b> ${esc(c.t)}</li>`).join('')}</ul></section>`:''}
  ${reasoningHtml}
  <section class="score-grid">${Object.keys(labels).filter(k=>(r.max[k]||0)>0).map(k=>{const val=Math.max(0,r.score[k]||0),max=r.max[k]||0,pct=max?Math.min(100,Math.round(val/max*100)):0;return `<article><div><span>${labels[k]}</span><b>${Math.min(val,max)}/${max}</b></div><i><em style="width:${pct}%"></em></i></article>`}).join('')}</section>
- <section class="debrief-grid"><article class="debrief warn"><h2>פעולות חובה שהוחמצו</h2>${listOr(r.missed,x=>x.label,'לא הוחמצו פעולות חובה.')}</article><article class="debrief"><h2>מידע חשוב שלא נאסף</h2>${listOr(r.missedFacts,x=>s.facts[x]||x,'כל המידע החשוב נאסף.')}</article><article class="debrief"><h2>שאלות המשך שכדאי היה לשאול</h2>${listOr(r.followups,x=>x.text,'לא נשארו שאלות המשך פתוחות.')}</article><article class="debrief"><h2>פעולות ושאלות מיותרות</h2>${listOr(r.unnecessary,x=>x.label||x.text,'לא היו.')}</article></section>
+ <section class="debrief-grid"><article class="debrief warn"><h2>פעולות חובה שהוחמצו</h2>${listOr(r.missed,x=>x.label,'לא הוחמצו פעולות חובה.')}</article><article class="debrief"><h2>מידע חשוב שלא נאסף</h2>${listOr(r.missedFacts,x=>s.facts[x]||(e.allActions().find(a=>(a.reveals||[]).includes(x))||{}).label||x,'כל המידע החשוב נאסף.')}</article><article class="debrief"><h2>שאלות המשך שכדאי היה לשאול</h2>${listOr(r.followups,x=>x.text,'לא נשארו שאלות המשך פתוחות.')}</article><article class="debrief"><h2>פעולות ושאלות מיותרות</h2>${listOr(r.unnecessary,x=>x.label||x.text,'לא היו.')}</article></section>
  <section class="debrief wide"><h2>כל הפעולות בתרחיש</h2><table class="action-table"><thead><tr><th>בוצע</th><th>פעולה</th><th>סוג</th></tr></thead><tbody>${allRows}</tbody></table></section>
  <section class="debrief path wide"><h2>הדרך המומלצת</h2><ol>${s.expectedPath.principles.map((step,i)=>`<li><span>${i+1}</span>${esc(step.map(id=>label(id)!==id?label(id):s.anamnesis.find(q=>q.id===id)?.text||id).join(' / '))}</li>`).join('')}</ol></section>
  ${s.learningObjectives?`<section class="debrief wide goals"><h2>על מה התרגיל בדק</h2><ul>${s.learningObjectives.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></section>`:''}
