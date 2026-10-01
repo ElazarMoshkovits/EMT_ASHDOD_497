@@ -1,9 +1,11 @@
-const CACHE_VERSION = 'emt-ashdod-497-v48';
+const CACHE_VERSION = 'emt-ashdod-497-v49';
 const APP_SHELL = [
   './',
   './index.html',
   './review.html',
   './part2-review.html',
+  './terms.html',
+  './terms.css',
   './styles.css',
   './unified.css',
   './common.css',
