@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'emt-ashdod-497-v44';
+const CACHE_VERSION = 'emt-ashdod-497-v45';
 const APP_SHELL = [
   './',
   './index.html',
@@ -17,6 +17,7 @@ const APP_SHELL = [
   './cpr-cases.js',
   './part2-data.js',
   './part2.js',
+  './part2-cases.js',
   './app.js',
   './engine.js',
   './scenarios.js',
