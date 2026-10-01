@@ -122,7 +122,17 @@ function closeModal(silent){
  if(!silent){if(cb)cb();if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 }
 function modalOpen(){return !!document.getElementById('c-modal')}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modalOpen()){const card=document.querySelector('#c-modal .c-close');if(card)closeModal()}});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&modalOpen()){const card=document.querySelector('#c-modal .c-close');if(card)closeModal()}
+ // מקש Tab נשאר בתוך החלון הפתוח ולא בורח לדף שמאחוריו
+ if(e.key==='Tab'&&modalOpen()){
+  const wrap=document.getElementById('c-modal'),items=[...wrap.querySelectorAll('button,[href],input,select,textarea,summary,[tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled&&el.getClientRects().length>0&&(el.tagName==='SUMMARY'||!el.closest('details:not([open])')));
+  if(!items.length)return;
+  const first=items[0],last=items[items.length-1],inside=wrap.contains(document.activeElement);
+  if(!inside||(e.shiftKey&&document.activeElement===first)){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+ }
+});
 function confirmDialog(title,text,okLabel='אישור',cancelLabel='ביטול',danger=false){
  return new Promise(resolve=>{
   let answered=false;
