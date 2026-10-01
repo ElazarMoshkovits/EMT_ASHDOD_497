@@ -1,4 +1,4 @@
-// חלק ב׳: תפריט, תרגול לפי נושא, אתגר משולב, תרגול יומי, בנק טעויות ומבחן לדוגמה.
+// חלק ב׳: תפריט, תרגול לפי נושא, אתגר משולב, תרגול יומי, בנק טעויות, מבחן לדוגמה ותרחישים מתפצלים.
 (function(){
 const {esc,shuffle}=Course;
 const TOPICS=window.PART2.topics;
@@ -9,9 +9,9 @@ const BY_ID=new Map(ALL.map(q=>[q.id,q]));
 const isB=id=>BY_ID.has(id);
 const topicIds=t=>t.qs.map(q=>q.id);
 
-function show(view){['home','play'].forEach(v=>$('#'+v).classList.toggle('hidden',v!==view));window.scrollTo(0,0)}
+function show(view){['home','play','branch'].forEach(v=>$('#'+v).classList.toggle('hidden',v!==view));window.scrollTo(0,0)}
 function goHome(){Course.nav.home()}
-Course.nav.init(view=>{if(view==='home'){Quiz.stop();show('home');renderHome()}});
+Course.nav.init(view=>{if(view==='home'){Quiz.stop();CprCases.stop();show('home');renderHome()}});
 if(location.hash)history.replaceState({view:'home'},'',location.pathname);
 
 function renderHome(){
@@ -64,6 +64,8 @@ function dailyItems(){
 }
 function bankItems(){const b=Course.bankIds(isB),ids=[...b.filter(x=>x.due).map(x=>x.id),...Course.profile.saved.filter(isB),...b.filter(x=>!x.due).map(x=>x.id)];return [...new Set(ids)].slice(0,20).map(id=>BY_ID.get(id)).filter(Boolean)}
 
+// התרחישים רצים על המנוע של חלק א׳ (cpr-cases.js), עם תרחישים ושיאים של חלק ב׳.
+$('#branchBtn').onclick=()=>{show('branch');Course.nav.push('branch');CprCases.branch($('#branch'),{cases:window.PART2_CASES,bestKey:'branch2',onExit:()=>{CprCases.stop();goHome()}})};
 $('#dailyBtn').onclick=()=>startQuiz(dailyItems(),{label:'תרגול יומי · חלק ב׳',mode:'bank'});
 $('#mixedBtn').onclick=()=>startQuiz(mixedItems(),{label:'אתגר משולב · חלק ב׳',mode:'challenge',lives:true});
 $('#bankBtn').onclick=()=>{const items=bankItems();if(!items.length){Course.toast('אין כרגע שאלות בבנק. טעויות ושאלות שתשמרו יופיעו כאן.');return}startQuiz(items,{label:'בנק הטעויות · חלק ב׳',mode:'bank'})};
