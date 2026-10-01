@@ -428,14 +428,16 @@ const BRANCH=[
 
 let B=null;
 const clockStr=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+// opts.cases ו־opts.bestKey מאפשרים לחלק ב׳ להשתמש באותו מנוע עם תרחישים ושיאים משלו.
+let SET=BRANCH,BEST_KEY='branch';
 function branch(h,o){
- stop();host=h;opts=o||{};
- const best=drillBest().branch||{};
- window.scrollTo(0,0);host.innerHTML=`${head('🔀 תרחישים מתפצלים','בחרו תרחיש')}<article class="quiz-card"><h2 class="question">כל החלטה משנה את ההמשך</h2><p class="muted">כאן אין ״נסו שוב״. כל בחירה נשארת: היא משנה את סיכויי המטופל, מוסיפה זמן, ולפעמים מובילה למקום אחר לגמרי. בסוף רואים לאן הגעתם ומה היה אפשר לעשות אחרת.</p><div class="scenario-list">${BRANCH.map((x,i)=>`<button class="scenario-pick" type="button" data-case="${i}"><span aria-hidden="true">${x.icon}</span><div><b>${esc(x.name)}</b><small>${esc(x.desc)}${best[x.id]!=null?` · שיא ${best[x.id]}%`:''}</small></div></button>`).join('')}</div></article>`;
+ stop();host=h;opts=o||{};SET=opts.cases||BRANCH;BEST_KEY=opts.bestKey||'branch';
+ const best=drillBest()[BEST_KEY]||{};
+ window.scrollTo(0,0);host.innerHTML=`${head('🔀 תרחישים מתפצלים','בחרו תרחיש')}<article class="quiz-card"><h2 class="question">כל החלטה משנה את ההמשך</h2><p class="muted">כאן אין ״נסו שוב״. כל בחירה נשארת: היא משנה את סיכויי המטופל, מוסיפה זמן, ולפעמים מובילה למקום אחר לגמרי. בסוף רואים לאן הגעתם ומה היה אפשר לעשות אחרת.</p><div class="scenario-list">${SET.map((x,i)=>`<button class="scenario-pick" type="button" data-case="${i}"><span aria-hidden="true">${x.icon}</span><div><b>${esc(x.name)}</b><small>${esc(x.desc)}${best[x.id]!=null?` · שיא ${best[x.id]}%`:''}</small></div></button>`).join('')}</div></article>`;
  $('[data-back]').onclick=opts.onExit;
  host.querySelectorAll('[data-case]').forEach(b=>b.onclick=()=>startBranch(+b.dataset.case));
 }
-function startBranch(i){const c=BRANCH[i];B={i,c,node:c.start,meter:100,clock:c.clock,path:[]};renderNode()}
+function startBranch(i){const c=SET[i];B={i,c,node:c.start,meter:100,clock:c.clock,path:[]};renderNode()}
 function meterClass(m){return m>=75?'good':m>=50?'mid':'low'}
 function renderNode(){
  const n=B.c.nodes[B.node];
@@ -457,7 +459,7 @@ function chooseBranch(i,button){
 function finishBranch(){
  const n=B.c.nodes[B.node],fatal=!!n.fatal,pct=fatal?0:B.meter;
  const text=fatal?n.fatal:n.end[B.meter>=75?0:B.meter>=50?1:2];
- const b=drillBest();b.branch=b.branch||{};b.branch[B.c.id]=Math.max(b.branch[B.c.id]||0,pct);Course.addXp(pct*3);Course.save();Course.beep(fatal?'bad':'win');
+ const b=drillBest();b[BEST_KEY]=b[BEST_KEY]||{};b[BEST_KEY][B.c.id]=Math.max(b[BEST_KEY][B.c.id]||0,pct);Course.addXp(pct*3);Course.save();Course.beep(fatal?'bad':'win');
  const good=B.path.filter(p=>p.good).length,bad=B.path.filter(p=>!p.good);
  window.scrollTo(0,0);host.innerHTML=`${head(`${B.c.icon} ${esc(B.c.name)}`,`${pct}%`)}<article class="quiz-card center"><div class="big-emoji" aria-hidden="true">${fatal?'⚠️':pct>=75?'🚑':pct>=50?'🩺':'💔'}</div><h2 class="question">${fatal?'האירוע נגמר':'סוף האירוע'}</h2><div class="scene-box">${esc(text)}</div>
  <div class="result-grid"><div class="stat"><b>${pct}%</b><small>סיכויי המטופל</small></div><div class="stat"><b>${good}/${B.path.length}</b><small>החלטות נכונות</small></div><div class="stat"><b>${clockStr(B.clock)}</b><small>זמן מתחילת האירוע</small></div></div>
