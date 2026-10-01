@@ -191,7 +191,7 @@ function openSettings(){
  card.querySelectorAll('[data-reset]').forEach(b=>b.onclick=async()=>{
   const scope=b.dataset.reset,info=RESET_SCOPES[scope];
   const ok=await confirmDialog(`לאפס את ${info.label}?`,`יימחקו: ${esc(info.text)}<br>אי אפשר לבטל את זה.`,'כן, לאפס','לא',true);
-  if(ok){resetScope(scope);toast(`${info.label}: ההתקדמות אופסה`)}
+  if(ok){resetScope(scope);toast(`${info.label}: ההתקדמות אופסה`);setTimeout(()=>location.reload(),700)}
  });
 }
 
