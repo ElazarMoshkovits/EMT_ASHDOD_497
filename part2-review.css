@@ -12,3 +12,17 @@ button,input{font:inherit}.hidden{display:none!important}.part2-app{width:min(11
 @media(max-width:850px){.part2-hero{grid-template-columns:1fr}.hero-score{min-height:150px}.topic-grid{grid-template-columns:repeat(2,1fr)}.mode-grid{grid-template-columns:1fr}.mode-card{min-height:110px}}
 @media(max-width:760px){.part2-app{padding:0}.part2-hero{padding:24px 0 40px}.part2-hero h1{font-size:clamp(2.7rem,14vw,4rem)}.section-heading{align-items:flex-start;flex-direction:column}.topic-grid{grid-template-columns:1fr}.topic-card{min-height:190px}.game-head{margin-top:4px}.quiz-card{border-radius:8px 24px 8px 8px}.question{font-size:1.45rem}.result-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:390px){.modal-card{padding:23px 17px}.next-row{justify-content:center}.next-row .primary{width:100%}}
+
+/* ---- תרחישים מתפצלים (המנוע ב־cpr-cases.js) ---- */
+#branch .quiz-card{width:min(780px,100%);margin:0 auto}
+.scenario-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.scenario-pick{border:1px solid #ffffff16;background:linear-gradient(155deg,#153541,#0b1e27);color:#fff;border-radius:8px;padding:16px;text-align:right;display:flex;gap:13px;align-items:center;cursor:pointer;font:inherit}
+.scenario-pick:hover{border-color:var(--mint);box-shadow:0 14px 38px #0004}.scenario-pick span{font-size:30px}.scenario-pick b{display:block;margin-bottom:4px}.scenario-pick small{color:var(--muted)}
+.insights{text-align:right;display:grid;gap:10px;margin:18px 0}.insight{padding:13px 15px;border-radius:7px;background:#ffffff0b;border:1px solid #ffffff16;line-height:1.5}.insight b{color:var(--mint);display:block;margin-bottom:3px}
+.insight.err.critical{border-color:#ff5a5566}.insight.err.critical b{color:#ffb3b0}.insight.err.minor b{color:var(--gold)}.best-line{color:var(--green);font-weight:700}
+.drill-sub{font-size:15px;margin:18px 0 0;color:var(--muted)}
+.meter-row{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin-bottom:6px}.meter-row b{color:#fff}
+#branch .progress.meter{height:9px;background:#ffffff12;border-radius:20px;overflow:hidden}#branch .progress.meter i{display:block;height:100%;transition:width .5s;border-radius:20px}.progress.meter.good i{background:var(--green)}.progress.meter.mid i{background:var(--gold)}.progress.meter.low i{background:var(--red)}
+@media(max-width:760px){.scenario-list{grid-template-columns:1fr}}
+#branch .scene-box{background:#061a2a88;border:1px solid #ffffff16;border-radius:7px;padding:16px;line-height:1.6;color:#d8edf5;margin:15px 0}
+#branch .big-emoji{font-size:68px;line-height:1.1}
