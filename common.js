@@ -280,7 +280,7 @@ const nav={
 function versionText(){
  const v=window.APP_VERSION;if(!v)return '';
  const d=new Date(v.date+'T12:00:00');
- return `גרסה ${v.number}${Number.isNaN(d.getTime())?'':` · ${d.toLocaleDateString('he-IL')}`}`;
+ return `גרסה ${v.version}${Number.isNaN(d.getTime())?'':` · ${d.toLocaleDateString('he-IL')}`}`;
 }
 function footer(){const v=versionText();return `<footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של המדריך ר׳ יחיאל מייברג.</span><span class="footer-links"><a class="footer-terms-link" href="terms.html">תקנון האתר</a>${v?`<span class="footer-version">${esc(v)}</span>`:''}</span></footer>`}
 // דפים עם תחתית סטטית: עוטפים את הקישור ומוסיפים את הגרסה
