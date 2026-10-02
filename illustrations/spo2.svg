@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="איור: חיישן סטורציה על האצבע" font-family="Arial, Helvetica, sans-serif">
+<title>איור: חיישן סטורציה על האצבע</title>
+<rect x="1" y="1" width="318" height="198" rx="12" fill="#0d2530" stroke="#ffffff22"/>
+
+<rect x="22" y="90" width="170" height="40" rx="20" fill="#e3b999"/>
+<rect x="150" y="97" width="30" height="20" rx="8" fill="#f4dccb" opacity=".8"/>
+<rect x="84" y="66" width="74" height="88" rx="14" fill="#1d3b48" stroke="#78cde5" stroke-width="2"/>
+<line x1="121" y1="74" x2="121" y2="146" stroke="#ff5a55" stroke-width="3" stroke-dasharray="4 3"/>
+<circle cx="121" cy="76" r="4" fill="#ff5a55"/><circle cx="121" cy="144" r="4" fill="#fff"/>
+<path d="M84 110 C60 110 60 170 40 170" fill="none" stroke="#a9bcc3" stroke-width="2.5"/>
+<rect x="218" y="52" width="86" height="88" rx="10" fill="#061117" stroke="#a9bcc3" stroke-width="2"/>
+<text x="261" y="92" font-size="26" fill="#55d6b2" text-anchor="middle" font-weight="700" direction="rtl">98%</text>
+<text x="261" y="108" font-size="10" fill="#a9bcc3" text-anchor="middle" font-weight="400" direction="rtl">SpO₂</text>
+<path d="M228 126 L240 126 L246 114 L252 134 L258 120 L264 126 L294 126" fill="none" stroke="#55d6b2" stroke-width="2"/>
+<text x="100" y="24" font-size="11" fill="#dfe9ec" text-anchor="middle" font-weight="400" direction="rtl">אצבע נקייה וחמה, בלי לק</text>
+<text x="100" y="40" font-size="11" fill="#55d6b2" text-anchor="middle" font-weight="700" direction="rtl">מחכים לגל יציב לפני קריאה</text>
+<text x="261" y="162" font-size="10" fill="#a9bcc3" text-anchor="middle" font-weight="400" direction="rtl">משווים למראה המטופל</text>
+
+</svg>

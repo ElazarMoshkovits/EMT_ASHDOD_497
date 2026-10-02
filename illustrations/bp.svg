@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" role="img" aria-label="איור: מדידת לחץ דם בזרוע" font-family="Arial, Helvetica, sans-serif">
+<title>איור: מדידת לחץ דם בזרוע</title>
+<rect x="1" y="1" width="318" height="198" rx="12" fill="#0d2530" stroke="#ffffff22"/>
+
+<rect x="28" y="82" width="250" height="44" rx="22" fill="#e3b999"/>
+<rect x="92" y="72" width="72" height="64" rx="8" fill="#2b6f86" stroke="#78cde5" stroke-width="1.5"/>
+<g stroke="#ffffff55" stroke-width="1"><line x1="110" y1="72" x2="110" y2="136"/><line x1="128" y1="72" x2="128" y2="136"/><line x1="146" y1="72" x2="146" y2="136"/></g>
+<line x1="164" y1="150" x2="210" y2="150" stroke="#f2b94b" stroke-width="2"/><line x1="164" y1="144" x2="164" y2="156" stroke="#f2b94b" stroke-width="2"/><line x1="210" y1="144" x2="210" y2="156" stroke="#f2b94b" stroke-width="2"/>
+<line x1="210" y1="82" x2="210" y2="126" stroke="#9c7557" stroke-width="2" stroke-dasharray="3 3"/>
+<text x="187" y="168" font-size="10" fill="#f2b94b" text-anchor="middle" font-weight="400" direction="rtl">2–3 ס״מ מעל קפל המרפק</text>
+<circle cx="188" cy="104" r="6" fill="none" stroke="#55d6b2" stroke-width="2.5"/>
+<line x1="20" y1="104" x2="300" y2="104" stroke="#ff5a55" stroke-width="1" stroke-dasharray="4 4" opacity=".7"/>
+<text x="32" y="100" font-size="13" fill="#ff5a55" text-anchor="middle" font-weight="400" direction="rtl">♥</text>
+<text x="268" y="98" font-size="9" fill="#ff5a55" text-anchor="end" font-weight="400" direction="rtl">גובה הלב</text>
+<path d="M128 72 C128 44 170 36 214 44" fill="none" stroke="#a9bcc3" stroke-width="2.5"/>
+<circle cx="238" cy="46" r="24" fill="#061117" stroke="#a9bcc3" stroke-width="2"/>
+<path d="M222 56 A19 19 0 0 1 254 56" fill="none" stroke="#ffffff33" stroke-width="3"/><line x1="238" y1="46" x2="248" y2="34" stroke="#ff5a55" stroke-width="2.5" stroke-linecap="round"/><circle cx="238" cy="46" r="3" fill="#a9bcc3"/>
+<text x="160" y="16" font-size="10.5" fill="#dfe9ec" text-anchor="middle" font-weight="400" direction="rtl">שרוול מתאים, על זרוע חשופה, בגובה הלב</text>
+<text x="160" y="190" font-size="10.5" fill="#55d6b2" text-anchor="middle" font-weight="700" direction="rtl">סטטוסקופ על העורק הברכיאלי</text>
+
+</svg>
