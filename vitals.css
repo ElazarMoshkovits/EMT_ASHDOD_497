@@ -5,7 +5,7 @@
 .v-hero{border:1px solid #78cde533;border-radius:12px;padding:20px;background:linear-gradient(145deg,#123d57,#0c2638);display:grid;gap:8px}
 .v-hero h1{font-size:1.6rem}
 .v-hero p{color:#becbd0;line-height:1.55}
-.v-cta{margin-top:6px}
+.v-cta{margin-top:6px;display:flex;flex-wrap:wrap;gap:10px}
 .v-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}
 .v-tab{flex:0 0 auto;min-height:44px;padding:8px 16px;border-radius:99px;border:1px solid var(--c-line);background:#ffffff09;color:#fff;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
 .v-tab.on{background:linear-gradient(135deg,#4de2da,#78f1bc);border-color:transparent;color:#08251a}
