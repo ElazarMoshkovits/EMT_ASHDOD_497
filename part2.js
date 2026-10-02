@@ -74,7 +74,7 @@ $('#examBtn').onclick=async()=>{if(await Course.confirm('מבחן לדוגמה',
 Course.mountHeader({subtitle:'חלק ב׳ · מצבי חירום רפואיים'});
 Course.onChange(()=>{if(!$('#home').classList.contains('hidden'))renderHome()});
 renderHome();
-{const t=Number(new URLSearchParams(location.search).get('topic'));if(Number.isInteger(t)&&TOPICS[t]){history.replaceState({view:'home'},'',location.pathname);openTopic(t)}}
+{const raw=new URLSearchParams(location.search).get('topic'),t=raw!==null&&/^\d+$/.test(raw)?Number(raw):-1;if(TOPICS[t]){history.replaceState({view:'home'},'',location.pathname);openTopic(t)}}
 if(new URLSearchParams(location.search).get('mode')==='weak'){history.replaceState({view:'home'},'',location.pathname);startWeak()}
 if(new URLSearchParams(location.search).get('mode')==='mixed'){history.replaceState({view:'home'},'',location.pathname);$('#mixedBtn').click()}
 })();
