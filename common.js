@@ -12,7 +12,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 function shuffle(list){const a=list.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 const dayStart=t=>{const d=new Date(t);d.setHours(0,0,0,0);return d.getTime()};
 
-function fresh(){return{schema:4,name:DEFAULT_NAME,xp:0,sound:false,timer:true,seen:{},bank:{},saved:[],legacyStars:{},starCache:{},simBest:{},resusBest:{},seqBest:{},memoryWins:0,drillBest:{},examBest:{},guideSeen:false,last:null,resume:{}}}
+function fresh(){return{schema:4,name:DEFAULT_NAME,xp:0,sound:false,timer:true,seen:{},bank:{},saved:[],legacyStars:{},starCache:{},simBest:{},resusBest:{},seqBest:{},memoryWins:0,drillBest:{},examBest:{},guideSeen:false,last:null,resume:{},days:{}}}
 
 // המרה מהמבנה הישן של הפרופיל. שאלות חלק א׳ נשמרו לפי טקסט, ולכן ההמרה שלהן נגמרת בעמוד חלק א׳.
 function migrate(raw){
@@ -38,9 +38,18 @@ function onChange(fn){listeners.push(fn)}
 window.addEventListener('storage',e=>{if(e.key===KEY){profile=load();Course.profile=profile;refreshHeader();listeners.forEach(fn=>{try{fn()}catch(err){}})}});
 
 // ---- תשובות ובנק טעויות (חזרה מרווחת: שלוש תשובות נכונות בשלושה ימים שונים) ----
+function dayKey(t){const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+// יומן פעילות: כמה תשובות נרשמו בכל יום (נשמר 120 ימים אחרונים)
+function logDay(now){
+ const days=profile.days||(profile.days={}),k=dayKey(now),e=days[k]||(days[k]={n:0,c:0});
+ e.n++;
+ const keys=Object.keys(days);if(keys.length>120){keys.sort().slice(0,keys.length-120).forEach(x=>delete days[x])}
+ return e;
+}
 function record(id,ok){
  const now=Date.now(),s=profile.seen[id]||(profile.seen[id]={n:0,c:0});
  s.n++;if(ok)s.c++;s.ok=!!ok;s.last=now;
+ const day=logDay(now);if(ok)day.c++;
  const entry=profile.bank[id];
  if(!ok){profile.bank[id]={box:0,due:now};return 'banked'}
  if(!entry)return 'ok';
@@ -176,7 +185,7 @@ function resetScope(scope){
  if(scope==='a'||scope==='all'){dropIds(isA);dropStars('a:');profile.resusBest={};profile.seqBest={};profile.drillBest={};profile.memoryWins=0;delete profile.examBest.a;delete profile.resume.a;delete profile.pendingA}
  if(scope==='b'||scope==='all'){dropIds(id=>!isA(id));dropStars('b:');if(profile.drillBest)delete profile.drillBest.branch2;delete profile.examBest.b;delete profile.resume.b}
  if(scope==='sim'||scope==='all'){profile.simBest={};delete profile.resume.sim}
- if(scope==='all'){profile.xp=0;profile.last=null}
+ if(scope==='all'){profile.xp=0;profile.last=null;profile.days={}}
  save();
 }
 function openSettings(){
@@ -205,5 +214,5 @@ const nav={
 
 function footer(){return `<footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של המדריך ר׳ יחיאל מייברג.</span><a class="footer-terms-link" href="terms.html">תקנון האתר</a></footer>`}
 
-window.Course={get profile(){return profile},set profile(v){profile=v},save,onChange,record,bankInfo,bankIds,isSaved,toggleSaved,starsFor,coverage,starTotals,addXp,setLast,beep,toast,openModal,closeModal,modalOpen,confirm:confirmDialog,mountHeader,refreshHeader,openSettings,resetScope,nav,esc,shuffle,footer,DEFAULT_NAME,A_IDS,DAY};
+window.Course={get profile(){return profile},set profile(v){profile=v},save,onChange,record,bankInfo,bankIds,isSaved,toggleSaved,starsFor,coverage,starTotals,addXp,setLast,beep,toast,openModal,closeModal,modalOpen,confirm:confirmDialog,mountHeader,refreshHeader,openSettings,resetScope,nav,esc,shuffle,footer,DEFAULT_NAME,A_IDS,DAY,dayKey};
 })();
