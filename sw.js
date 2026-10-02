@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'emt-ashdod-497-v55';
+const CACHE_VERSION = 'emt-ashdod-497-v56';
 const APP_SHELL = [
   './',
   './index.html',
