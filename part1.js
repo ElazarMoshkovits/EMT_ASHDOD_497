@@ -208,6 +208,7 @@ function openDrill(view){const m=DRILLS[view];show(view);if(!history.state||hist
 
 // ---- חיבור כפתורים ----
 $('#dailyBtn').onclick=()=>startQuiz(dailyItems(),{label:'תרגול יומי · חלק א׳',mode:'bank'});
+const startWeak=()=>{const w=Course.weakPlan(LEVELS.map(l=>({name:l.name,ids:levelIds(l)})),isA);const items=w.ids.map(id=>BY_ID.get(id)).filter(Boolean);startQuiz(items,{label:'תרגול חולשות · חלק א׳',mode:'bank'})};
 $('#bankBtn').onclick=()=>{const items=bankItems();if(!items.length){Course.toast('אין כרגע שאלות בבנק. טעויות ושאלות שתשמרו יופיעו כאן.');return}startQuiz(items,{label:'בנק הטעויות · חלק א׳',mode:'bank'})};
 $('#examBtn').onclick=async()=>{if(await Course.confirm('מבחן לדוגמה','40 שאלות מכל הקטגוריות, 45 דקות. התשובות והציון יוצגו רק בסוף, כמו במבחן אמיתי. אפשר לחזור לשאלות קודמות ולשנות תשובה.','להתחיל','לא עכשיו'))startQuiz(examItems(),{label:'מבחן לדוגמה · חלק א׳',mode:'exam',examMinutes:45})};
 $('#survivalBtn').onclick=()=>startQuiz(shuffle(ALL).slice(0,30),{label:'אתגר שלושה לבבות',mode:'challenge',lives:true});
@@ -217,4 +218,5 @@ $('#whatnowBtn').onclick=()=>openDrill('whatnow');$('#branchBtn').onclick=()=>op
 Course.mountHeader({subtitle:'חלק א׳ · החייאה ויסודות'});
 Course.onChange(()=>{if(!$('#home').classList.contains('hidden'))renderHome()});
 renderHome();
+if(new URLSearchParams(location.search).get('mode')==='weak'){history.replaceState({view:'home'},'',location.pathname);startWeak()}
 })();
