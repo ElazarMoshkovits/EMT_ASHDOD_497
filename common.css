@@ -279,3 +279,7 @@ a.scenario-card{display:block;text-decoration:none}
 .reasoning-card .step-dots i{width:9px;height:9px;border-radius:50%;background:#ffffff1a}
 .reasoning-card .step-dots i.done{background:var(--c-mint)}
 .reasoning-card .step-dots i.now{background:var(--c-amber);box-shadow:0 0 10px var(--c-amber)}
+
+/* גרסה ותאריך בתחתית, ליד הקישור לתקנון */
+.footer-links{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.footer-version{color:#799098;white-space:nowrap}

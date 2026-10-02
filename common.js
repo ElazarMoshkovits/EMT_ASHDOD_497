@@ -276,7 +276,25 @@ const nav={
  home(){if(history.state&&history.state.view&&history.state.view!=='home'){history.back()}else{history.replaceState({view:'home'},'',location.pathname+location.search)}}
 };
 
-function footer(){return `<footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של המדריך ר׳ יחיאל מייברג.</span><a class="footer-terms-link" href="terms.html">תקנון האתר</a></footer>`}
+// גרסה ותאריך מ־version.js, ליד הקישור לתקנון
+function versionText(){
+ const v=window.APP_VERSION;if(!v)return '';
+ const d=new Date(v.date+'T12:00:00');
+ return `גרסה ${v.number}${Number.isNaN(d.getTime())?'':` · ${d.toLocaleDateString('he-IL')}`}`;
+}
+function footer(){const v=versionText();return `<footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של המדריך ר׳ יחיאל מייברג.</span><span class="footer-links"><a class="footer-terms-link" href="terms.html">תקנון האתר</a>${v?`<span class="footer-version">${esc(v)}</span>`:''}</span></footer>`}
+// דפים עם תחתית סטטית: עוטפים את הקישור ומוסיפים את הגרסה
+function stampFooters(){
+ const v=versionText();if(!v)return;
+ document.querySelectorAll('.course-footer').forEach(f=>{
+  if(f.querySelector('.footer-version'))return;
+  const a=f.querySelector('.footer-terms-link');if(!a)return;
+  let box=a.parentElement;
+  if(!box.classList.contains('footer-links')){box=document.createElement('span');box.className='footer-links';a.replaceWith(box);box.appendChild(a)}
+  const s=document.createElement('span');s.className='footer-version';s.textContent=v;box.appendChild(s);
+ });
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',stampFooters);else stampFooters();
 
 window.Course={get profile(){return profile},set profile(v){profile=v},save,onChange,record,bankInfo,bankIds,isSaved,toggleSaved,starsFor,coverage,starTotals,weakPlan,addXp,setLast,beep,toast,openModal,closeModal,modalOpen,confirm:confirmDialog,mountHeader,refreshHeader,openSettings,resetScope,nav,esc,shuffle,footer,DEFAULT_NAME,A_IDS,DAY,dayKey};
 })();

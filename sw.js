@@ -1,4 +1,5 @@
-const CACHE_VERSION = 'emt-ashdod-497-v60';
+importScripts('./version.js');
+const CACHE_VERSION = 'emt-ashdod-497-v' + self.APP_VERSION.number;
 const APP_SHELL = [
   './',
   './index.html',
@@ -20,6 +21,7 @@ const APP_SHELL = [
   './common.css',
   './part1.css',
   './part2-review.css',
+  './version.js',
   './common.js',
   './quiz.js',
   './part1-data.js',
