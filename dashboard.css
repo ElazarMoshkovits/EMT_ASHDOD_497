@@ -78,6 +78,8 @@ a.lrow:hover{border-color:var(--c-mint)}
 .weak-list{counter-reset:w;display:grid;gap:8px}
 .weak-list .lrow::before{counter-increment:w;content:counter(w);width:24px;height:24px;border-radius:50%;background:#ffffff14;display:grid;place-items:center;font-size:.8rem;flex:0 0 24px}
 .weak-list .lrow span:first-child{flex:1}
+.weak-actions{margin:0 0 12px}
+.weak-actions .c-btn{flex:1 1 150px}
 .empty-note{color:var(--c-muted);font-size:.9rem;padding:6px 2px}
 
 @media(max-width:980px){
