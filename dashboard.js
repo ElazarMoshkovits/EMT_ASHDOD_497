@@ -3,6 +3,7 @@
 const {esc}=Course;
 const $=s=>document.querySelector(s);
 const DAYS_SHOWN=14,DAY=Course.DAY;
+const INSTRUCTOR_PHONE='972543695010';
 const pct=(a,b)=>b?Math.round(a/b*100):0;
 const tone=v=>v==null?'none':v>=85?'good':v>=65?'mid':'low';
 const score=v=>`<b class="${tone(v)}">${v==null?'—':v+'%'}</b>`;
@@ -62,6 +63,32 @@ function chart(act){
  return `<div class="chart" role="img" aria-label="תשובות ב־${DAYS_SHOWN} הימים האחרונים">${act.list.map(x=>`<div class="col${x.n?'':' zero'}" title="${fmt(x.t)}: ${x.n} תשובות"><i style="height:${Math.max(2,x.n/max*100)}%"></i></div>`).join('')}</div><div class="chart-axis"><span>${fmt(act.list[0].t)}</span><span>היום</span></div>`;
 }
 
+// ---- שליחת הסיכום למדריך בוואטסאפ ----
+function normalizePhone(v){let n=String(v||'').replace(/\D/g,'');if(n.startsWith('00'))n=n.slice(2);if(n.startsWith('0'))n='972'+n.slice(1);return n}
+function send(phone,text){
+ const n=normalizePhone(phone);
+ if(!/^\d{8,15}$/.test(n)){Course.toast('מספר הטלפון לא תקין',true);return}
+ window.open(`https://wa.me/${n}?text=${encodeURIComponent(text)}`,'_blank','noopener');
+}
+function sendOther(text){
+ const card=Course.openModal(`<h2>למי לשלוח?</h2><label class="c-field"><span>מספר וואטסאפ</span><input type="tel" inputmode="tel" data-phone placeholder="050-0000000" autofocus></label><div class="c-actions"><button class="c-btn primary" type="button" data-send>לשלוח</button></div>`,{label:'שליחה למספר אחר'});
+ card.querySelector('[data-send]').onclick=()=>{send(card.querySelector('[data-phone]').value,text);Course.closeModal(true)};
+}
+function summaryText(d){
+ const p=Course.profile,name=p.name===Course.DEFAULT_NAME?'בלי שם':p.name;
+ const lines=[`לוח התקדמות, קורס חובשים 497`,`שם: ${name}`,`תאריך: ${new Date().toLocaleDateString('he-IL')}`,'',
+  `שליטה כללית: ${d.mastery}% (${d.ok}/${d.total} שאלות נכונות)`,
+  `דיוק בכל התשובות: ${d.acc==null?'—':d.acc+'%'} מתוך ${d.n} תשובות`,
+  `חלק א׳: ${d.okA}/${d.totalA} · חלק ב׳: ${d.okB}/${d.totalB}`,
+  `כוכבים: ${d.stars}/${d.maxStars} · נקודות: ${d.xp}`,
+  `רצף ימי תרגול: ${d.streak} · תשובות בשבוע האחרון: ${d.week}`,
+  `שאלות לחזרה היום: ${d.due}`,
+  `מבחן לדוגמה: חלק א׳ ${p.examBest.a!=null?p.examBest.a+'%':'—'}, חלק ב׳ ${p.examBest.b!=null?p.examBest.b+'%':'—'}`,
+  `סימולטור אנמנזה: ${d.simDone}/${d.simTotal} תרחישים${d.simAvg!=null?`, ממוצע ${d.simAvg}`:''}`];
+ if(d.weak.length)lines.push('','נושאים לחיזוק:',...d.weak.map(r=>`• ${r.name}: ${r.acc}%`));
+ return lines.join('\n');
+}
+
 function render(){
  const p=Course.profile,rows=rowsOf(),st=Course.starTotals();
  const total=rows.reduce((s,r)=>s+r.total,0),ok=rows.reduce((s,r)=>s+r.ok,0),n=rows.reduce((s,r)=>s+r.n,0),right=rows.reduce((s,r)=>s+r.right,0);
@@ -76,6 +103,9 @@ function render(){
  const weak=rows.filter(r=>r.n>=3).map(r=>Object.assign({acc:pct(r.right,r.n)},r)).sort((a,b)=>a.acc-b.acc).slice(0,4);
  const name=p.name!==Course.DEFAULT_NAME?`, ${esc(p.name)}`:'';
  const mastery=pct(ok,total);
+ const part=k=>rows.filter(r=>r.part===k).reduce((a,r)=>({ok:a.ok+r.ok,total:a.total+r.total}),{ok:0,total:0});
+ const pa=part('a'),pb=part('b');
+ const text=summaryText({mastery,ok,total,acc,n,okA:pa.ok,totalA:pa.total,okB:pb.ok,totalB:pb.total,stars:st.total,maxStars:st.max,xp:Number(p.xp)||0,streak:act.streak,week:act.week,due,simDone:done.length,simTotal:window.SCENARIOS.length,simAvg:avg,weak:weak.slice(0,3)});
 
  $('#dash').innerHTML=`
  <a class="dash-back" href="index.html">← חזרה לדף הבית</a>
@@ -125,7 +155,10 @@ function render(){
     </div></section>
   </div>
  </div>
+ <section class="dash-card share-card" aria-labelledby="h-share"><div><h2 id="h-share">שליחה למדריך</h2><p class="dash-sub">נפתחת הודעת וואטסאפ מוכנה עם סיכום ההתקדמות, והשליחה נעשית רק אחרי שתאשרו אותה באפליקציה.</p></div><div class="c-actions"><button class="c-btn primary" type="button" data-share>📱 לשלוח את הלוח ליחיאל בוואטסאפ</button><button class="c-btn" type="button" data-share-other>למספר אחר</button></div></section>
  <p class="dash-sub">הנתונים נשמרים בדפדפן הזה בלבד. איפוס אפשר לעשות דרך ההגדרות (⚙).</p>`;
+ $('[data-share]').onclick=()=>send(INSTRUCTOR_PHONE,text);
+ $('[data-share-other]').onclick=()=>sendOther(text);
  Course.refreshHeader();
 }
 
