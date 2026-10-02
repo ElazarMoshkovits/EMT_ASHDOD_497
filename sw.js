@@ -1,5 +1,5 @@
 importScripts('./version.js');
-const CACHE_VERSION = 'emt-ashdod-497-v' + self.APP_VERSION.number;
+const CACHE_VERSION = 'emt-ashdod-497-v' + self.APP_VERSION.version;
 const APP_SHELL = [
   './',
   './index.html',
