@@ -1,0 +1,91 @@
+/* לוח התקדמות. נטען אחרון, משתמש במשתני הצבע של common.css */
+.dash{max-width:1180px;margin:0 auto 60px;display:grid;gap:16px}
+.dash h1,.dash h2,.dash h3,.dash p{margin:0}
+.dash-back{color:var(--c-mint);text-decoration:none;font-weight:700;justify-self:start}
+.dash-card{border:1px solid var(--c-line);background:#ffffff09;border-radius:12px;padding:18px;min-width:0}
+.dash-card>h2{font-size:1.1rem;margin-bottom:4px}
+.dash-sub{color:var(--c-muted);font-size:.86rem;margin-bottom:14px}
+
+/* פתיח */
+.dash-hero{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:linear-gradient(145deg,#123d57,#0c2638);border-color:#78cde533}
+.ring{--p:0;width:132px;height:132px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--c-mint) calc(var(--p)*1%),#ffffff1a 0)}
+.ring>div{width:104px;height:104px;border-radius:50%;background:#0c2638;display:grid;place-content:center;text-align:center}
+.ring b{font-size:1.9rem;line-height:1}
+.ring small{color:var(--c-muted);font-size:.72rem}
+.hero-text{display:grid;gap:8px;min-width:0}
+.hero-text h1{font-size:1.5rem}
+.hero-text p{color:#becbd0;line-height:1.5}
+.next-step{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px}
+.next-step span{color:var(--c-amber);font-weight:800;font-size:.86rem}
+
+/* מדדים */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.kpi{border:1px solid var(--c-line);background:#ffffff09;border-radius:10px;padding:12px 14px;display:grid;gap:2px;min-width:0}
+.kpi b{font-size:1.5rem}
+.kpi small{color:var(--c-muted);font-size:.78rem}
+.kpi.warn b{color:var(--c-amber)}
+.kpi.good b{color:var(--c-mint)}
+
+/* פריסה */
+.dash-cols{display:grid;grid-template-columns:3fr 2fr;gap:16px;align-items:start}
+.dash-side{display:grid;gap:16px;min-width:0}
+
+/* שליטה לפי נושא */
+.part-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:14px 0 8px;font-weight:800}
+.part-title a{color:var(--c-mint);font-size:.84rem;text-decoration:none}
+.topics{display:grid;gap:6px}
+.trow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.5fr) auto;gap:10px;align-items:center;padding:9px 10px;border-radius:8px;text-decoration:none;color:#fff;border:1px solid transparent}
+.trow:hover{background:#ffffff0d;border-color:var(--c-line)}
+.trow .tn{display:flex;gap:8px;align-items:center;min-width:0}
+.trow .tn span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trow .bar{height:9px;border-radius:99px;background:#ffffff1a;overflow:hidden}
+.trow .bar em{display:block;height:100%;border-radius:99px;background:var(--tc,var(--c-mint))}
+.trow .tv{font-size:.8rem;color:var(--c-muted);white-space:nowrap;min-width:5.4em;text-align:left}
+.trow .tv b{color:#fff}
+.trow.weak .tv b{color:var(--c-amber)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--c-muted);font-size:.78rem;margin-top:12px}
+
+/* פעילות */
+.streaks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.streaks div{text-align:center;border:1px solid var(--c-line);border-radius:8px;padding:8px 4px}
+.streaks b{display:block;font-size:1.25rem}
+.streaks small{color:var(--c-muted);font-size:.72rem}
+.chart{display:flex;align-items:flex-end;gap:4px;height:120px;direction:ltr}
+.chart .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;min-width:0}
+.chart .col i{display:block;width:100%;border-radius:4px 4px 0 0;background:var(--c-mint);min-height:2px;opacity:.9}
+.chart .col.zero i{background:#ffffff22}
+.chart-axis{display:flex;justify-content:space-between;color:var(--c-muted);font-size:.72rem;margin-top:6px;direction:ltr}
+
+/* חזרות וציונים */
+.list{display:grid;gap:8px}
+.lrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--c-line);border-radius:8px;text-decoration:none;color:#fff}
+a.lrow:hover{border-color:var(--c-mint)}
+.lrow span:first-child{display:grid;gap:1px;min-width:0}
+.lrow small{color:var(--c-muted)}
+.lrow b{white-space:nowrap}
+.lrow b.good{color:var(--c-mint)}
+.lrow b.mid{color:var(--c-amber)}
+.lrow b.low{color:var(--c-red)}
+.lrow b.none{color:var(--c-muted);font-weight:400}
+.mini-head{font-weight:800;margin:14px 0 8px;font-size:.9rem}
+.mini-head:first-of-type{margin-top:0}
+.weak-list{counter-reset:w;display:grid;gap:8px}
+.weak-list .lrow::before{counter-increment:w;content:counter(w);width:24px;height:24px;border-radius:50%;background:#ffffff14;display:grid;place-items:center;font-size:.8rem;flex:0 0 24px}
+.weak-list .lrow span:first-child{flex:1}
+.empty-note{color:var(--c-muted);font-size:.9rem;padding:6px 2px}
+
+@media(max-width:980px){
+ .kpis{grid-template-columns:repeat(3,1fr)}
+ .dash-cols{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+ .dash{gap:12px}
+ .dash-card{padding:14px}
+ .dash-hero{grid-template-columns:1fr;justify-items:center;text-align:center}
+ .next-step{justify-content:center}
+ .kpis{grid-template-columns:repeat(2,1fr)}
+ .kpi b{font-size:1.3rem}
+ .trow{grid-template-columns:1fr auto;gap:6px 10px}
+ .trow .bar{grid-column:1/-1;order:3}
+ .hero-text h1{font-size:1.25rem}
+}
