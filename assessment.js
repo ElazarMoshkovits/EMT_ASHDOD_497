@@ -143,7 +143,7 @@ function tabHtml(){
 }
 function render(){
  $('#assess').innerHTML=`<a class="v-back" href="part2-review.html">← חזרה לחלק ב׳</a>
- <section class="v-hero"><span class="kicker">חלק ב׳</span><h1>הערכת מטופל</h1><p>ABCDE, שאלות לאנמנזה ותבנית לדיווח. מדריך לימוד לפי ההבנה של כותב האתר, ויש לאמת אותו מול חומר הקורס והנחיות המדריך.</p>
+ <section class="v-hero"><span class="kicker">חלק ב׳</span><h1>הערכת מטופל</h1><p>ABCDE, שאלות לאנמנזה ותבנית לדיווח.</p>
   <div class="v-cta"><a class="c-btn primary" href="part2-review.html?topic=0">לתרגל שאלות על אנמנזה</a><a class="c-btn" href="index.html#simulator">לסימולטור האנמנזה</a><a class="c-btn" href="vitals.html">מדריך מדידות</a></div></section>
  <nav class="v-tabs" role="tablist" aria-label="נושאים">${TABS.map(([id,n])=>`<button class="v-tab${id===tab?' on':''}" type="button" role="tab" aria-selected="${id===tab}" data-t="${id}">${n}</button>`).join('')}</nav>
  <div id="tab-panel" role="tabpanel">${tabHtml()}</div>`;
