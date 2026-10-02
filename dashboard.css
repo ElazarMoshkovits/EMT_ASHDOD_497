@@ -56,6 +56,12 @@
 .chart .col.zero i{background:#ffffff22}
 .chart-axis{display:flex;justify-content:space-between;color:var(--c-muted);font-size:.72rem;margin-top:6px;direction:ltr}
 
+/* שליחה למדריך */
+.share-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.share-card .dash-sub{margin-bottom:0}
+.share-card .c-actions{margin-top:0}
+@media(max-width:560px){.share-card{flex-direction:column;align-items:stretch;text-align:center}.share-card .c-actions{flex-direction:column}}
+
 /* חזרות וציונים */
 .list{display:grid;gap:8px}
 .lrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--c-line);border-radius:8px;text-decoration:none;color:#fff}
