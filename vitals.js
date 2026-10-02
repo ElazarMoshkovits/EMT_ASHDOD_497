@@ -89,7 +89,7 @@ function paintMeasure(){
 function render(){
  $('#vitals').innerHTML=`<a class="v-back" href="part2-review.html">← חזרה לחלק ב׳</a>
  <section class="v-hero"><span class="kicker">חלק ב׳</span><h1>מדידות בסיסיות</h1><p>דופק, נשימה, סטורציה, לחץ דם וסוכר: איך מודדים, מה הערכים ומה מדווחים. הערכים הם למבוגר במנוחה. בילדים ובתינוקות הערכים משתנים לפי גיל, ויש לפעול לפי חומר הקורס.</p>
-  <div class="v-cta"><a class="c-btn primary" href="part2-review.html?topic=7">לתרגל שאלות על מדידות</a></div></section>
+  <div class="v-cta"><a class="c-btn primary" href="part2-review.html?topic=7">לתרגל שאלות על מדידות</a><a class="c-btn" href="assessment.html">מדריך הערכת מטופל</a></div></section>
  <nav class="v-tabs" role="tablist" aria-label="מדדים">${MEASURES.map(m=>`<button class="v-tab" type="button" role="tab" data-m="${m.id}"><span aria-hidden="true">${m.icon}</span> ${esc(m.name)}</button>`).join('')}</nav>
  <div id="panel" role="tabpanel"></div>
  <section class="v-card v-abc"><h3>איפה זה משתלב בהערכה (ABCDE)</h3><div class="abc-grid"><div><b>B · נשימה</b><span>קצב נשימה וסטורציה</span></div><div><b>C · מחזור דם</b><span>דופק ולחץ דם</span></div><div><b>D · הכרה</b><span>הכרה וסוכר</span></div></div><p class="v-note">חוזרים על המדדים כל 5–10 דקות, ואחרי כל שינוי או טיפול. המגמה חשובה לא פחות מהערך עצמו.</p></section>
