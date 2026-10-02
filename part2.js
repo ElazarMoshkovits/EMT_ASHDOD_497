@@ -70,10 +70,11 @@ $('#dailyBtn').onclick=()=>startQuiz(dailyItems(),{label:'תרגול יומי ·
 $('#mixedBtn').onclick=()=>startQuiz(mixedItems(),{label:'אתגר משולב · חלק ב׳',mode:'challenge',lives:true});
 const startWeak=()=>{const w=Course.weakPlan(TOPICS.map(t=>({name:t.name,ids:topicIds(t)})),isB);const items=w.ids.map(id=>BY_ID.get(id)).filter(Boolean);startQuiz(items,{label:'תרגול חולשות · חלק ב׳',mode:'bank'})};
 $('#bankBtn').onclick=()=>{const items=bankItems();if(!items.length){Course.toast('אין כרגע שאלות בבנק. טעויות ושאלות שתשמרו יופיעו כאן.');return}startQuiz(items,{label:'בנק הטעויות · חלק ב׳',mode:'bank'})};
-$('#examBtn').onclick=async()=>{if(await Course.confirm('מבחן לדוגמה','28 שאלות, ארבע מכל נושא, 30 דקות. הציון והתשובות יוצגו רק בסוף. אפשר לחזור לשאלות קודמות ולשנות תשובה.','להתחיל','לא עכשיו'))startQuiz(shuffle(TOPICS.flatMap(t=>shuffle(t.qs).slice(0,4))),{label:'מבחן לדוגמה · חלק ב׳',mode:'exam',examMinutes:30})};
+$('#examBtn').onclick=async()=>{if(await Course.confirm('מבחן לדוגמה','32 שאלות, ארבע מכל נושא, 35 דקות. הציון והתשובות יוצגו רק בסוף. אפשר לחזור לשאלות קודמות ולשנות תשובה.','להתחיל','לא עכשיו'))startQuiz(shuffle(TOPICS.flatMap(t=>shuffle(t.qs).slice(0,4))),{label:'מבחן לדוגמה · חלק ב׳',mode:'exam',examMinutes:35})};
 Course.mountHeader({subtitle:'חלק ב׳ · מצבי חירום רפואיים'});
 Course.onChange(()=>{if(!$('#home').classList.contains('hidden'))renderHome()});
 renderHome();
+{const t=Number(new URLSearchParams(location.search).get('topic'));if(Number.isInteger(t)&&TOPICS[t]){history.replaceState({view:'home'},'',location.pathname);openTopic(t)}}
 if(new URLSearchParams(location.search).get('mode')==='weak'){history.replaceState({view:'home'},'',location.pathname);startWeak()}
 if(new URLSearchParams(location.search).get('mode')==='mixed'){history.replaceState({view:'home'},'',location.pathname);$('#mixedBtn').click()}
 })();
