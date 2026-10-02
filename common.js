@@ -3,7 +3,7 @@
 const KEY='medicQuestProfile';
 const DAY=86400000;
 const A_IDS=['basics','terms','nerves','breathing','heart','cpr','cprkeys','aed','kids','choking','field','final','org'];
-const B_COUNT=7;
+const B_COUNT=8;
 const MAX_STARS=(A_IDS.length+B_COUNT)*3;
 const REVIEW_GAPS=[1,3];// ימים עד החזרה הבאה אחרי תשובה נכונה ראשונה ושנייה
 const DEFAULT_NAME='חובש/ת';
