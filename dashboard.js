@@ -142,6 +142,7 @@ function render(){
     </div></section>
 
    <section class="dash-card" aria-labelledby="h-weak"><h2 id="h-weak">נושאים לחיזוק</h2><p class="dash-sub">לפי הדיוק בתשובות, בנושאים שענית בהם לפחות שלוש פעמים.</p>
+    <div class="c-actions weak-actions"><a class="c-btn primary" href="review.html?mode=weak">תרגול חולשות · חלק א׳</a><a class="c-btn primary" href="part2-review.html?mode=weak">תרגול חולשות · חלק ב׳</a></div>
     ${weak.length?`<div class="weak-list">${weak.map(r=>`<a class="lrow" href="${r.href}"><span>${r.icon} ${esc(r.name)}<small>${r.right} נכונות מתוך ${r.n} תשובות</small></span><b class="${tone(r.acc)}">${r.acc}%</b></a>`).join('')}</div>`:'<p class="empty-note">עוד אין מספיק תשובות. אחרי כמה סבבי תרגול יופיעו כאן הנושאים שכדאי לחזק.</p>'}</section>
 
    <section class="dash-card" aria-labelledby="h-scores"><h2 id="h-scores">ציונים ומשחקים</h2><p class="dash-sub">הציון הטוב ביותר בכל תרגול.</p>

@@ -81,6 +81,22 @@ function starTotals(){
  const sum=pre=>Object.entries(Object.assign({},profile.legacyStars,profile.starCache)).filter(([k])=>k.startsWith(pre)).reduce((t,[k])=>t+Math.max(Number(profile.starCache[k])||0,Number(profile.legacyStars[k])||0),0);
  const a=sum('a:'),b=sum('b:');return{a,b,total:a+b,maxA:A_IDS.length*3,maxB:B_COUNT*3,max:MAX_STARS};
 }
+// תרגול חולשות: טעויות שהגיע זמנן, ואחריהן שאלות שעוד לא נענו נכון מהנושאים עם הדיוק הנמוך ביותר.
+// groups: [{name, ids:[...]}]; isPart: סינון בנק הטעויות לחלק הנוכחי.
+function weakPlan(groups,isPart,max=20){
+ const stat=g=>{let n=0,c=0;g.ids.forEach(id=>{const s=profile.seen[id];if(s){n+=s.n;c+=s.c}});return{g,n,acc:n?c/n:1,ok:g.ids.filter(id=>profile.seen[id]&&profile.seen[id].ok).length}};
+ const all=groups.map(stat);
+ const answered=all.filter(x=>x.n>=3).sort((a,b)=>a.acc-b.acc);
+ const picked=answered.slice(0,3);
+ if(picked.length<3)all.filter(x=>!picked.includes(x)&&x.ok<x.g.ids.length).sort((a,b)=>a.ok/a.g.ids.length-b.ok/b.g.ids.length).slice(0,3-picked.length).forEach(x=>picked.push(x));
+ const out=[],add=id=>{if(id&&out.length<max&&!out.includes(id))out.push(id)};
+ bankIds(isPart).filter(x=>x.due).slice(0,8).forEach(x=>add(x.id));
+ const open=picked.map(x=>shuffle(x.g.ids.filter(id=>!(profile.seen[id]&&profile.seen[id].ok))));
+ for(let r=0;r<4;r++)open.forEach(list=>add(list[r]));
+ open.forEach(list=>list.forEach(add));
+ picked.forEach(x=>shuffle(x.g.ids).forEach(add));
+ return{ids:shuffle(out),names:picked.map(x=>x.g.name)};
+}
 function addXp(n){profile.xp=(Number(profile.xp)||0)+Math.max(0,Math.round(n))}
 function setLast(href,label){profile.last={href,label,ts:Date.now()};save()}
 
@@ -188,6 +204,49 @@ function resetScope(scope){
  if(scope==='all'){profile.xp=0;profile.last=null;profile.days={}}
  save();
 }
+// ---- גיבוי ושחזור ----
+const BACKUP_MAX=2*1024*1024;
+function exportBackup(){
+ const data=JSON.stringify({app:'emt-497',exported:new Date().toISOString(),profile},null,1);
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));
+ a.download=`חובשים-497-גיבוי-${dayKey(Date.now())}.json`;
+ document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+// לוקחים רק שדות מוכרים מהסוג הנכון, כדי שקובץ פגום או זר לא ישבש את הפרופיל.
+function cleanBackup(raw){
+ const src=raw&&raw.profile&&typeof raw.profile==='object'?raw.profile:raw;
+ if(!src||typeof src!=='object'||src.schema!==4||typeof src.seen!=='object'||src.seen===null)return null;
+ const base=fresh(),out=fresh();
+ Object.keys(base).forEach(k=>{
+  const v=src[k];if(v===undefined)return;
+  const want=base[k];
+  if(Array.isArray(want)){if(Array.isArray(v))out[k]=v.filter(x=>typeof x==='string')}
+  else if(want&&typeof want==='object'){if(v&&typeof v==='object'&&!Array.isArray(v))out[k]=v}
+  else if(typeof want==='number'){if(Number.isFinite(Number(v)))out[k]=Number(v)}
+  else if(typeof want==='boolean'){out[k]=!!v}
+  else if(typeof want==='string'){if(typeof v==='string')out[k]=v.slice(0,24)}
+  else if(want===null){out[k]=v&&typeof v==='object'?v:null}
+ });
+ return out;
+}
+function importBackup(file){
+ if(!file)return;
+ if(file.size>BACKUP_MAX){toast('הקובץ גדול מדי ולא נראה כמו גיבוי של האתר',true);return}
+ const reader=new FileReader();
+ reader.onerror=()=>toast('לא הצלחנו לקרוא את הקובץ',true);
+ reader.onload=async()=>{
+  let raw=null;try{raw=JSON.parse(reader.result)}catch(e){}
+  const next=cleanBackup(raw);
+  if(!next){toast('זה לא קובץ גיבוי תקין של האתר',true);return}
+  const answered=Object.keys(next.seen).length;
+  const ok=await confirmDialog('לשחזר מהגיבוי?',`הגיבוי כולל ${answered} שאלות שנענו ו־${(Number(next.xp)||0).toLocaleString('he-IL')} נקודות. ההתקדמות הנוכחית בדפדפן הזה תוחלף בו. אי אפשר לבטל את זה.`,'כן, לשחזר','לא',true);
+  if(!ok)return;
+  profile=next;Course.profile=profile;save();toast('השחזור הושלם');setTimeout(()=>location.reload(),700);
+ };
+ reader.readAsText(file);
+}
 function openSettings(){
  const card=openModal(`<h2>הגדרות</h2>
   <label class="c-field"><span>השם שיופיע באתר ובסיכומים</span><input type="text" maxlength="24" data-set-name value="${esc(profile.name===DEFAULT_NAME?'':profile.name)}" placeholder="השם שלך"></label>
@@ -195,8 +254,13 @@ function openSettings(){
   <label class="c-switch"><input type="checkbox" data-set-timer ${profile.timer?'checked':''}><span>שעון לכל שאלה (25–35 שניות)</span></label>
   <p class="c-note">בלי שעון אפשר לקרוא כל שאלה בנחת. במבחן לדוגמה יש שעון כללי בכל מקרה.</p>
   <div class="c-actions"><button class="c-btn primary" type="button" data-set-save>שמירה</button></div>
+  <details class="c-reset"><summary>גיבוי ושחזור</summary><p class="c-note">ההתקדמות נשמרת רק בדפדפן הזה. כדי לא לאבד אותה כשמחליפים טלפון או מנקים נתוני דפדפן, שמרו גיבוי, ובמכשיר החדש שחזרו ממנו.</p><div class="c-reset-grid"><button class="c-btn" type="button" data-backup-export>שמירת גיבוי</button><button class="c-btn" type="button" data-backup-import>שחזור מגיבוי</button></div><input type="file" accept="application/json,.json" data-backup-file hidden></details>
   <details class="c-reset"><summary>איפוס התקדמות</summary><p class="c-note">ההתקדמות נשמרת רק בדפדפן הזה.</p><div class="c-reset-grid">${Object.entries(RESET_SCOPES).map(([k,v])=>`<button class="c-btn${k==='all'?' danger':''}" type="button" data-reset="${k}">איפוס ${v.label}</button>`).join('')}</div></details>`,{label:'הגדרות'});
  card.querySelector("[data-set-save]").onclick=()=>{profile.name=card.querySelector("[data-set-name]").value.trim()||DEFAULT_NAME;profile.sound=card.querySelector("[data-set-sound]").checked;profile.timer=card.querySelector("[data-set-timer]").checked;save();closeModal();toast('נשמר')};
+ card.querySelector('[data-backup-export]').onclick=()=>{exportBackup();toast('הגיבוי נשמר בקובץ')};
+ const fileInput=card.querySelector('[data-backup-file]');
+ card.querySelector('[data-backup-import]').onclick=()=>fileInput.click();
+ fileInput.onchange=()=>importBackup(fileInput.files[0]);
  card.querySelectorAll('[data-reset]').forEach(b=>b.onclick=async()=>{
   const scope=b.dataset.reset,info=RESET_SCOPES[scope];
   const ok=await confirmDialog(`לאפס את ${info.label}?`,`יימחקו: ${esc(info.text)}<br>אי אפשר לבטל את זה.`,'כן, לאפס','לא',true);
@@ -214,5 +278,5 @@ const nav={
 
 function footer(){return `<footer class="course-footer"><span>הוכן על ידי אלעזר מושקוביץ עבור קורס חובשים אשדוד 497</span><span>עזר ללמידה לקראת המבחן ולשטח. לא מחליף את חומר הקורס ואת ההנחיות של המדריך ר׳ יחיאל מייברג.</span><a class="footer-terms-link" href="terms.html">תקנון האתר</a></footer>`}
 
-window.Course={get profile(){return profile},set profile(v){profile=v},save,onChange,record,bankInfo,bankIds,isSaved,toggleSaved,starsFor,coverage,starTotals,addXp,setLast,beep,toast,openModal,closeModal,modalOpen,confirm:confirmDialog,mountHeader,refreshHeader,openSettings,resetScope,nav,esc,shuffle,footer,DEFAULT_NAME,A_IDS,DAY,dayKey};
+window.Course={get profile(){return profile},set profile(v){profile=v},save,onChange,record,bankInfo,bankIds,isSaved,toggleSaved,starsFor,coverage,starTotals,weakPlan,addXp,setLast,beep,toast,openModal,closeModal,modalOpen,confirm:confirmDialog,mountHeader,refreshHeader,openSettings,resetScope,nav,esc,shuffle,footer,DEFAULT_NAME,A_IDS,DAY,dayKey};
 })();
