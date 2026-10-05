@@ -250,6 +250,10 @@ function importBackup(file){
 function openSettings(){
  const card=openModal(`<h2>הגדרות</h2>
   <label class="c-field"><span>השם שיופיע באתר ובסיכומים</span><input type="text" maxlength="24" data-set-name value="${esc(profile.name===DEFAULT_NAME?'':profile.name)}" placeholder="השם שלך"></label>
+  <div class="c-theme"><b>מראה האתר</b>
+   <label class="c-field"><span>מצב תצוגה</span><select data-th-mode><option value="dark">כהה</option><option value="light">בהיר</option><option value="auto">לפי המכשיר</option></select></label>
+   <div class="c-colors">${[['bgDark','dark','צבע רקע במצב כהה'],['bgLight','light','צבע רקע במצב בהיר']].map(([k,n,l])=>`<div class="c-color"><label><span>${l}</span><input type="color" data-th-color="${k}" data-th-def="${n}"></label><button class="c-btn" type="button" data-th-reset="${k}">איפוס</button></div>`).join('')}</div>
+   <p class="c-note">הצבע חל מיד, ורק על רקע הדפים. צבעי הטקסט והכרטיסים מותאמים אוטומטית לבהירות הרקע.</p></div>
   <label class="c-switch"><input type="checkbox" data-set-sound ${profile.sound?'checked':''}><span>צלילים</span></label>
   <label class="c-switch"><input type="checkbox" data-set-timer ${profile.timer?'checked':''}><span>שעון לכל שאלה (25–35 שניות)</span></label>
   <p class="c-note">בלי שעון אפשר לקרוא כל שאלה בנחת. במבחן לדוגמה יש שעון כללי בכל מקרה.</p>
@@ -257,6 +261,14 @@ function openSettings(){
   <details class="c-reset"><summary>גיבוי ושחזור</summary><p class="c-note">ההתקדמות נשמרת רק בדפדפן הזה. כדי לא לאבד אותה כשמחליפים טלפון או מנקים נתוני דפדפן, שמרו גיבוי, ובמכשיר החדש שחזרו ממנו.</p><div class="c-reset-grid"><button class="c-btn" type="button" data-backup-export>שמירת גיבוי</button><button class="c-btn" type="button" data-backup-import>שחזור מגיבוי</button></div><input type="file" accept="application/json,.json" data-backup-file hidden></details>
   <details class="c-reset"><summary>איפוס התקדמות</summary><p class="c-note">ההתקדמות נשמרת רק בדפדפן הזה.</p><div class="c-reset-grid">${Object.entries(RESET_SCOPES).map(([k,v])=>`<button class="c-btn${k==='all'?' danger':''}" type="button" data-reset="${k}">איפוס ${v.label}</button>`).join('')}</div></details>`,{label:'הגדרות'});
  card.querySelector("[data-set-save]").onclick=()=>{profile.name=card.querySelector("[data-set-name]").value.trim()||DEFAULT_NAME;profile.sound=card.querySelector("[data-set-sound]").checked;profile.timer=card.querySelector("[data-set-timer]").checked;save();closeModal();toast('נשמר')};
+ if(window.Theme){
+  const th=card.querySelector('[data-th-mode]'),inputs=[...card.querySelectorAll('[data-th-color]')];
+  const sync=()=>{const c=Theme.get();th.value=c.mode;inputs.forEach(i=>{i.value=c[i.dataset.thColor]||Theme.defaults[i.dataset.thDef]})};
+  sync();
+  th.onchange=()=>Theme.set({mode:th.value});
+  inputs.forEach(i=>i.oninput=()=>{Theme.set({[i.dataset.thColor]:i.value})});
+  card.querySelectorAll('[data-th-reset]').forEach(b=>b.onclick=()=>{Theme.set({[b.dataset.thReset]:''});sync()});
+ }
  card.querySelector('[data-backup-export]').onclick=()=>{exportBackup();toast('הגיבוי נשמר בקובץ')};
  const fileInput=card.querySelector('[data-backup-file]');
  card.querySelector('[data-backup-import]').onclick=()=>fileInput.click();
