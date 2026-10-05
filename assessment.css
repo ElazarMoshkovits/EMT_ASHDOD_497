@@ -1,29 +1,29 @@
 /* מדריך הערכת מטופל. נטען אחרי vitals.css */
 .v-cta{display:flex;flex-wrap:wrap;gap:10px}
-.lead-p{color:#becbd0;line-height:1.55;margin-bottom:12px}
+.lead-p{color:color-mix(in srgb,#becbd0 var(--aw),var(--atext));line-height:1.55;margin-bottom:12px}
 .steps-col{display:grid;gap:12px}
 .step{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
 .step-l{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-size:1.5rem;font-weight:900}
-.step-l.ok{background:#55d6b226;color:var(--c-mint)}
-.step-l.mid{background:#f2b94b26;color:var(--c-amber)}
+.step-l.ok{background:#55d6b226;color:color-mix(in srgb,var(--c-mint) var(--aw),var(--atext))}
+.step-l.mid{background:#f2b94b26;color:color-mix(in srgb,var(--c-amber) var(--aw),var(--atext))}
 .step-body{min-width:0}
 .step-body h3{margin-bottom:8px}
 .step-sec{margin-bottom:10px}
 .step-sec>b{display:block;font-size:.84rem;color:var(--c-muted);margin-bottom:4px}
-.step-sec.warn>b{color:#ff9a96}
-.step-sec.warn .v-list{color:#ffd0ce}
+.step-sec.warn>b{color:color-mix(in srgb,#ff9a96 var(--aw),var(--atext))}
+.step-sec.warn .v-list{color:color-mix(in srgb,#ffd0ce var(--aw),var(--atext))}
 .q-list{display:grid;gap:8px}
 .q{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;padding:8px 10px;border:1px solid var(--c-line);border-radius:8px}
-.q-l{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:#55d6b226;color:var(--c-mint);font-weight:900}
+.q-l{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:#55d6b226;color:color-mix(in srgb,var(--c-mint) var(--aw),var(--atext));font-weight:900}
 .q b{display:block;margin-bottom:2px}
-.q small{color:#becbd0;font-size:.88rem;line-height:1.45;display:block}
+.q small{color:color-mix(in srgb,#becbd0 var(--aw),var(--atext));font-size:.88rem;line-height:1.45;display:block}
 #tab-panel{display:grid;gap:14px}
 .report-grid{grid-template-columns:repeat(2,1fr)}
 .report-grid .c-field:nth-child(3),.report-grid .c-field:nth-child(4),.report-grid .c-field:nth-child(5),.report-grid .c-field:nth-child(13){grid-column:1/-1}
-.report-out{margin:0;white-space:pre-wrap;word-break:break-word;font:inherit;line-height:1.7;padding:12px;border:1px solid var(--c-line);border-radius:8px;background:#061117;min-height:96px}
+.report-out{margin:0;white-space:pre-wrap;word-break:break-word;font:inherit;line-height:1.7;padding:12px;border:1px solid var(--c-line);border-radius:8px;background:color-mix(in srgb,#061117 var(--sw),rgb(var(--sbase)));min-height:96px}
 .report-out.empty{color:var(--c-muted)}
 .report-missing{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px;font-size:.88rem}
-.example{line-height:1.7;color:#dfe9ec;padding:10px 12px;border-inline-start:3px solid var(--c-mint);background:#ffffff08;border-radius:6px}
+.example{line-height:1.7;color:color-mix(in srgb,#dfe9ec var(--aw),var(--atext));padding:10px 12px;border-inline-start:3px solid var(--c-mint);background:rgb(var(--fg)/0.031);border-radius:6px}
 @media(max-width:560px){
  .step{grid-template-columns:1fr}
  .step-l{width:44px;height:44px;font-size:1.25rem}

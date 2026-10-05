@@ -22,6 +22,7 @@ const APP_SHELL = [
   './part1.css',
   './part2-review.css',
   './version.js',
+  './theme.js',
   './common.js',
   './quiz.js',
   './part1-data.js',
