@@ -283,10 +283,28 @@ a.scenario-card{display:block;text-decoration:none}
 /* גרסה ותאריך בתחתית, ליד הקישור לתקנון */
 .footer-links{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
 .footer-version{color:color-mix(in srgb,#799098 var(--aw),var(--atext));white-space:nowrap}
-.c-theme{margin:14px 0;padding:12px 14px;border:1px solid var(--c-line);border-radius:10px;text-align:right}
-.c-theme>b{font-size:.95rem}
 .c-colors{display:grid;gap:10px;margin:8px 0}
 .c-color{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .c-color label{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.9rem;flex:1}
 .c-color input[type=color]{width:52px;height:40px;padding:2px;border-radius:8px;border:1px solid rgb(var(--fg)/0.165);background:transparent;cursor:pointer}
 .c-color .c-btn{min-height:40px;padding:6px 12px}
+
+/* ---- הגדרות ---- */
+.c-set-hint{margin:0 0 6px;font-size:.84rem;text-align:right}
+.c-set-sec{text-align:right;margin:12px 0 0;padding:14px;border:1px solid var(--c-line);border-radius:10px;background:rgb(var(--fg)/0.03)}
+.c-set-sec h3{margin:0 0 4px;font-size:1rem;color:var(--c-mint)}
+.c-set-sec .c-field{margin:8px 0 0}
+.c-set-sec .c-note{margin:8px 0 0}
+.c-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0;padding:4px;border:1px solid var(--c-line);border-radius:10px;background:rgb(var(--fg)/0.04)}
+.c-seg button{min-height:44px;border:0;border-radius:8px;background:transparent;color:var(--fg-text);font:inherit;font-weight:700;cursor:pointer}
+.c-seg button.on{background:var(--c-mint);color:#06303a}
+.c-seg button:focus-visible{outline:2px solid var(--c-mint);outline-offset:2px}
+.c-set-sec .c-switch{align-items:flex-start;padding:8px 0;margin:0;border-top:1px solid var(--c-line)}
+.c-set-sec h3+.c-switch{border-top:0}
+.c-switch>span{display:grid;gap:2px;flex:1}
+.c-switch small{color:var(--c-muted);font-size:.8rem;line-height:1.4}
+.c-switch input{flex:none;margin-top:2px}
+.c-set-sec .c-reset{margin-top:12px}
+.c-set-actions{position:sticky;bottom:-24px;margin:14px -24px -24px;padding:12px 24px;background:linear-gradient(transparent,color-mix(in srgb,#0b2230 var(--sw),rgb(var(--sbase))) 30%);}
+.c-set-actions .c-btn{min-width:160px}
+@media(max-width:520px){.c-modal-card{padding:24px 14px 18px}.c-set-sec{padding:12px}.c-set-actions{margin:14px -14px -18px;padding:12px 14px;bottom:-18px}.c-set-actions .c-btn{width:100%}.c-color{flex-wrap:wrap}}

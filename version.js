@@ -1,3 +1,3 @@
 // מקור יחיד למספר הגרסה ולתאריך. מוצגים בתחתית כל דף, והגרסה קובעת גם את שם המטמון ב־sw.js.
 // בכל שינוי באתר מעלים את version (לדוגמה 1.01) ומעדכנים את date (YYYY-MM-DD).
-globalThis.APP_VERSION={version:'1.05',date:'2026-10-07'};
+globalThis.APP_VERSION={version:'1.06',date:'2026-10-07'};
