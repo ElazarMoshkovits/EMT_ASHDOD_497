@@ -51,7 +51,7 @@ function startQuiz(items,cfg,state){
  if(!state)delete Course.profile.resume.a;
  Course.setLast('review.html',cfg.label);
  show('play');Course.nav.push('play');
- Quiz.start(Object.assign({host:$('#play'),page:'a',items,baseTime:25,state,showCat:cfg.mode!=='practice',onExit:goHome,onFinish:()=>{LEVELS.forEach(l=>Course.starsFor('a:'+l.id,levelIds(l)));Course.save()},summaryExtra,bindSummary},cfg));
+ Quiz.start(Object.assign({host:$('#play'),page:'a',items,baseTime:40,state,showCat:cfg.mode!=='practice',onExit:goHome,onFinish:()=>{LEVELS.forEach(l=>Course.starsFor('a:'+l.id,levelIds(l)));Course.save()},summaryExtra,bindSummary},cfg));
 }
 function resume(){
  const r=Course.profile.resume.a;if(!r)return;
