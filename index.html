@@ -1,37 +1,35 @@
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="תרגול לקורס חובשים אשדוד 497: שאלות, מבחנים לדוגמה וסימולטור אנמנזה">
-  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
-  <meta name="theme-color" content="#07131c">
-  <meta name="color-scheme" content="dark">
-  <script src="./theme.js"></script>
-  <meta name="application-name" content="קורס חובשים אשדוד 497">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="חובשים 497">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="format-detection" content="telephone=no">
-  <title>קורס חובשים 497 · מרכז תרגול</title>
-  <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
-  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-  <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./unified.css">
-  <link rel="stylesheet" href="./common.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>קורס חובשים 497 · האתר סגור לציבור</title>
+<link rel="icon" href="favicon.svg">
+<style>
+:root{--bg:#0b1220;--card:#131c30;--text:#eef2fb;--muted:#9aa7c2;--line:#27345a;--accent:#52d6a5;--accent-ink:#06261b}
+@media (prefers-color-scheme:light){:root{--bg:#f2f5fb;--card:#fff;--text:#14203a;--muted:#5b6785;--line:#d6ddec;--accent:#0e9f6e;--accent-ink:#fff}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:16px;background:var(--bg);color:var(--text);font:17px/1.7 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+main{width:100%;max-width:460px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px 24px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+img{display:block;width:96px;height:96px;border-radius:24px;margin:0 auto 16px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+h1{font-size:1.35rem;margin:0 0 12px}
+p{margin:0 0 14px;color:var(--muted)}
+p.contact{color:var(--text)}
+a.phone{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 22px;margin-top:6px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:1.1rem;text-decoration:none;direction:ltr}
+</style>
 </head>
 <body>
-  <main id="app" class="app-shell"><noscript>כדי להשתמש באתר צריך להפעיל JavaScript.</noscript></main>
-  <script src="./version.js"></script>
-  <script src="./common.js"></script>
-  <script src="./scenarios.js"></script>
-  <script src="./additional-scenarios.js"></script>
-  <script src="./more-scenarios.js"></script>
-  <script src="./scenario-extras.js"></script>
-  <script src="./engine.js"></script>
-  <script src="./app.js"></script>
-  <script src="./pwa.js"></script>
+<main>
+  <img src="icons/icon-192.png" width="96" height="96" alt="לוגו קורס חובשים 497">
+  <h1>האתר סגור לציבור</h1>
+  <p>לאחר שיפורי ניהול, סגרנו את האתר לציבור, כך שרק תלמידי הקורס יוכלו לקבל גישה אליו.</p>
+  <p class="contact">לשריון גישה, נא לפנות אל <b>אלעזר מושקוביץ</b>:</p>
+  <a class="phone" href="tel:0532219686">053-2219686</a>
+</main>
+<script>
+// מוחק עותקים ישנים של האפליקציה שנשמרו במכשירים שהתקינו אותה בעבר.
+try{if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(function(r){return Promise.all(r.map(function(x){return x.unregister()}))}).then(function(){return window.caches?caches.keys().then(function(k){return Promise.all(k.map(function(n){return caches.delete(n)}))}):0}).catch(function(){})}catch(e){}
+</script>
 </body>
 </html>
