@@ -248,27 +248,41 @@ function importBackup(file){
  reader.readAsText(file);
 }
 function openSettings(){
+ const colors=[['bgDark','dark','רקע במצב כהה'],['bgLight','light','רקע במצב בהיר']];
+ const modes=[['dark','כהה'],['light','בהיר'],['auto','לפי המכשיר']];
  const card=openModal(`<h2>הגדרות</h2>
-  <label class="c-field"><span>השם שיופיע באתר ובסיכומים</span><input type="text" maxlength="24" data-set-name value="${esc(profile.name===DEFAULT_NAME?'':profile.name)}" placeholder="השם שלך"></label>
-  <div class="c-theme"><b>מראה האתר</b>
-   <label class="c-field"><span>מצב תצוגה</span><select data-th-mode><option value="dark">כהה</option><option value="light">בהיר</option><option value="auto">לפי המכשיר</option></select></label>
-   <div class="c-colors">${[['bgDark','dark','צבע רקע במצב כהה'],['bgLight','light','צבע רקע במצב בהיר']].map(([k,n,l])=>`<div class="c-color"><label><span>${l}</span><input type="color" data-th-color="${k}" data-th-def="${n}"></label><button class="c-btn" type="button" data-th-reset="${k}">איפוס</button></div>`).join('')}</div>
-   <p class="c-note">הצבע חל מיד, ורק על רקע הדפים. צבעי הטקסט והכרטיסים מותאמים אוטומטית לבהירות הרקע.</p></div>
-  <label class="c-switch"><input type="checkbox" data-set-sound ${profile.sound?'checked':''}><span>צלילים</span></label>
-  <label class="c-switch"><input type="checkbox" data-set-timer ${profile.timer?'checked':''}><span>שעון לכל שאלה (25–35 שניות)</span></label>
-  <p class="c-note">בלי שעון אפשר לקרוא כל שאלה בנחת. במבחן לדוגמה יש שעון כללי בכל מקרה.</p>
-  <div class="c-actions"><button class="c-btn primary" type="button" data-set-save>שמירה</button></div>
-  <details class="c-reset"><summary>גיבוי ושחזור</summary><p class="c-note">ההתקדמות נשמרת רק בדפדפן הזה. כדי לא לאבד אותה כשמחליפים טלפון או מנקים נתוני דפדפן, שמרו גיבוי, ובמכשיר החדש שחזרו ממנו.</p><div class="c-reset-grid"><button class="c-btn" type="button" data-backup-export>שמירת גיבוי</button><button class="c-btn" type="button" data-backup-import>שחזור מגיבוי</button></div><input type="file" accept="application/json,.json" data-backup-file hidden></details>
-  <details class="c-reset"><summary>איפוס התקדמות</summary><p class="c-note">ההתקדמות נשמרת רק בדפדפן הזה.</p><div class="c-reset-grid">${Object.entries(RESET_SCOPES).map(([k,v])=>`<button class="c-btn${k==='all'?' danger':''}" type="button" data-reset="${k}">איפוס ${v.label}</button>`).join('')}</div></details>`,{label:'הגדרות'});
- card.querySelector("[data-set-save]").onclick=()=>{profile.name=card.querySelector("[data-set-name]").value.trim()||DEFAULT_NAME;profile.sound=card.querySelector("[data-set-sound]").checked;profile.timer=card.querySelector("[data-set-timer]").checked;save();closeModal();toast('נשמר')};
+  <p class="c-set-hint">שינויים נשמרים אוטומטית.</p>
+  <section class="c-set-sec" aria-labelledby="set-h-profile"><h3 id="set-h-profile">פרופיל</h3>
+   <label class="c-field"><span>השם שיופיע באתר ובסיכומים</span><input type="text" maxlength="24" data-set-name value="${esc(profile.name===DEFAULT_NAME?'':profile.name)}" placeholder="השם שלך" autocomplete="off"></label>
+  </section>
+  <section class="c-set-sec" aria-labelledby="set-h-look"><h3 id="set-h-look">מראה האתר</h3>
+   <div class="c-seg" role="radiogroup" aria-label="מצב תצוגה">${modes.map(([v,l])=>`<button type="button" role="radio" aria-checked="false" data-th-mode="${v}">${l}</button>`).join('')}</div>
+   <div class="c-colors">${colors.map(([k,n,l])=>`<div class="c-color"><label><span>${l}</span><input type="color" data-th-color="${k}" data-th-def="${n}"></label><button class="c-btn small" type="button" data-th-reset="${k}">איפוס</button></div>`).join('')}</div>
+   <p class="c-note">הצבע משנה רק את רקע הדפים. צבעי הטקסט והכרטיסים מותאמים אוטומטית.</p>
+  </section>
+  <section class="c-set-sec" aria-labelledby="set-h-practice"><h3 id="set-h-practice">תרגול</h3>
+   <label class="c-switch"><input type="checkbox" data-set-sound ${profile.sound?'checked':''}><span><b>צלילים</b><small>צליל קצר על תשובה נכונה ושגויה</small></span></label>
+   <label class="c-switch"><input type="checkbox" data-set-timer ${profile.timer?'checked':''}><span><b>שעון לכל שאלה</b><small>בלי שעון אפשר לקרוא כל שאלה בנחת. במבחן לדוגמה יש שעון כללי בכל מקרה.</small></span></label>
+  </section>
+  <section class="c-set-sec" aria-labelledby="set-h-data"><h3 id="set-h-data">נתונים</h3>
+   <p class="c-note">ההתקדמות נשמרת רק בדפדפן הזה. לפני החלפת טלפון או ניקוי נתוני דפדפן, שמרו גיבוי ושחזרו ממנו במכשיר החדש.</p>
+   <div class="c-reset-grid"><button class="c-btn" type="button" data-backup-export>שמירת גיבוי</button><button class="c-btn" type="button" data-backup-import>שחזור מגיבוי</button></div><input type="file" accept="application/json,.json" data-backup-file hidden>
+   <details class="c-reset"><summary>איפוס התקדמות</summary><p class="c-note">הפעולה מוחקת התקדמות ואי אפשר לבטל אותה. לפני כל איפוס תתבקשו לאשר.</p><div class="c-reset-grid">${Object.entries(RESET_SCOPES).map(([k,v])=>`<button class="c-btn${k==='all'?' danger':''}" type="button" data-reset="${k}">איפוס ${v.label}</button>`).join('')}</div></details>
+  </section>
+  <div class="c-actions c-set-actions"><button class="c-btn primary" type="button" data-set-save>סיום</button></div>`,{label:'הגדרות'});
+ const nameIn=card.querySelector('[data-set-name]'),snd=card.querySelector('[data-set-sound]'),tmr=card.querySelector('[data-set-timer]');
+ const commit=()=>{profile.name=nameIn.value.trim()||DEFAULT_NAME;profile.sound=snd.checked;profile.timer=tmr.checked;save()};
+ nameIn.onchange=commit;snd.onchange=commit;tmr.onchange=commit;
+ nameIn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();commit();closeModal()}};
+ card.querySelector('[data-set-save]').onclick=()=>{commit();closeModal();toast('נשמר')};
  if(window.Theme){
-  const th=card.querySelector('[data-th-mode]'),inputs=[...card.querySelectorAll('[data-th-color]')];
-  const sync=()=>{const c=Theme.get();th.value=c.mode;inputs.forEach(i=>{i.value=c[i.dataset.thColor]||Theme.defaults[i.dataset.thDef]})};
+  const segs=[...card.querySelectorAll('[data-th-mode]')],inputs=[...card.querySelectorAll('[data-th-color]')];
+  const sync=()=>{const c=Theme.get();segs.forEach(b=>{const on=b.dataset.thMode===c.mode;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});inputs.forEach(i=>{i.value=c[i.dataset.thColor]||Theme.defaults[i.dataset.thDef]})};
   sync();
-  th.onchange=()=>Theme.set({mode:th.value});
+  segs.forEach(b=>b.onclick=()=>{Theme.set({mode:b.dataset.thMode});sync()});
   inputs.forEach(i=>i.oninput=()=>{Theme.set({[i.dataset.thColor]:i.value})});
   card.querySelectorAll('[data-th-reset]').forEach(b=>b.onclick=()=>{Theme.set({[b.dataset.thReset]:''});sync()});
- }
+ }else card.querySelector('[aria-labelledby="set-h-look"]').remove();
  card.querySelector('[data-backup-export]').onclick=()=>{exportBackup();toast('הגיבוי נשמר בקובץ')};
  const fileInput=card.querySelector('[data-backup-file]');
  card.querySelector('[data-backup-import]').onclick=()=>fileInput.click();
