@@ -36,7 +36,7 @@ function startQuiz(items,cfg,state){
  if(!state)delete Course.profile.resume.b;
  Course.setLast('part2-review.html',cfg.label);
  show('play');Course.nav.push('play');
- Quiz.start(Object.assign({host:$('#play'),page:'b',items,baseTime:35,state,showCat:cfg.mode!=='practice',onExit:goHome,onFinish:()=>{TOPICS.forEach((t,i)=>Course.starsFor('b:'+i,topicIds(t)));Course.save()},summaryExtra:()=>'<p class="c-note">רוצים לתרגל את זה בזירה? <a href="index.html#simulator">לסימולטור האנמנזה</a></p>'},cfg));
+ Quiz.start(Object.assign({host:$('#play'),page:'b',items,baseTime:45,state,showCat:cfg.mode!=='practice',onExit:goHome,onFinish:()=>{TOPICS.forEach((t,i)=>Course.starsFor('b:'+i,topicIds(t)));Course.save()},summaryExtra:()=>'<p class="c-note">רוצים לתרגל את זה בזירה? <a href="index.html#simulator">לסימולטור האנמנזה</a></p>'},cfg));
 }
 function resume(){
  const r=Course.profile.resume.b;if(!r)return;
